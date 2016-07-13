@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html>
-  <head ng-app="pokedex">
+<html ng-app="pokedex">
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="reset.css">
-
   </head>
-  <body>
+  <body ng-controller="pokeCtrl">
     <header>
       <h1>POKEMON</h1>
     </header>
@@ -16,14 +15,19 @@
       <div class="search">
         <h2>Search Pokemon</h2>
         <br>
-        <input type="text"placeholder="Search pokemon">
+        <form ng-submit="pokeData(number)">
+          <input ng-model="number" type="text" placeholder="Search pokemon">
+        </form>
       </div>
+      {{pokeName}}
       <div class="pokedex-pic">
-        
+
       </div>
     </section>
 
-    <footer></footer>
+    <footer>
+      <img src="{{pokepic}}" alt="pokemon" />
+    </footer>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
   <script src="./js/app.js"></script>
