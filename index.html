@@ -1,10 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
+  <head ng-app="pokedex">
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="reset.css">
+
   </head>
   <body>
+    <header>
+      <h1>POKEMON</h1>
+    </header>
+    <section class="pokedex">
+      <div class="search">
+        <h2>Search Pokemon</h2>
+        <br>
+        <input type="text"placeholder="Search pokemon">
+      </div>
+      <div class="pokedex-pic">
+        
+      </div>
+    </section>
 
+    <footer></footer>
   </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/pokeCtrl.js"></script>
+  <script src="./js/pokeServ.js"></script>
 </html>

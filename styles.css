@@ -1,0 +1,28 @@
+header {
+  height: 20vh;
+  background-color: #fb0505;
+}
+header h1 {
+  font-size: 60px;
+  padding-top: 30px;
+  color: #fff;
+  text-align: center;
+}
+.search {
+  text-align: center;
+}
+.pokedex {
+  height: 100vh;
+  margin: 20px;
+}
+.pokedex-pic {
+  height: 90vh;
+  width: 70%;
+  margin: 20px auto 0px auto;
+  border-radius: 25px;
+  background: url(./img/Pokedex.png) no-repeat;
+}
+footer {
+  height: 20vh;
+  background-color: #fb0505;
+}
