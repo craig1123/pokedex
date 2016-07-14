@@ -17,10 +17,25 @@ header h1 {
 }
 .pokedex-pic {
   height: 90vh;
-  width: 70%;
+  width: 75%;
   margin: 20px auto 0px auto;
+}
+.pokedex-img {
+  height: 88vh;
   border-radius: 25px;
-  background: url(./img/Pokedex.png) no-repeat;
+  width: 100%;
+  border: 0;
+  position: relative;
+  z-index: -1;
+}
+.show-poke {
+height: 313px;
+width: 28%;
+margin-left: 28px;
+position: absolute;
+z-index: 15;
+bottom: -30px;
+text-decoration: none;
 }
 footer {
   height: 20vh;
