@@ -1,6 +1,5 @@
 angular.module('pokedex')
   .service('pokeServ', function ($http) {
-    console.log('service');
     this.getPokemon = function (num) {
       return $http({
         method: 'GET',
