@@ -4,8 +4,13 @@ angular.module('pokedex')
     $scope.pokeData = function (num) {
       pokeServ.getPokemon(num).then(function (response) {
         console.log(response);
-        $scope.pokeName = response.name;
-        $scope.pokepic = response.sprites.front_shiny;
+        if (response === '') {
+          $scope.pokeName = '';
+          $scope.pokepic = '';
+        } else {
+          $scope.pokeName = response.name;
+          $scope.pokepic = response.sprites.front_shiny;
+        }
       });
     };
 

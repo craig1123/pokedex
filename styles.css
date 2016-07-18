@@ -8,20 +8,24 @@ header h1 {
   color: #fff;
   text-align: center;
 }
+#logo {
+  height: 142px;
+  width: 387px;
+}
 .search {
   text-align: center;
 }
 .pokedex {
-  height: 100vh;
+  height: 113vh;
   margin: 20px;
 }
 .pokedex-pic {
-  height: 90vh;
+  height: 100vh;
   width: 75%;
   margin: 20px auto 0px auto;
 }
 .pokedex-img {
-  height: 88vh;
+  height: 100vh;
   border-radius: 25px;
   width: 100%;
   border: 0;
