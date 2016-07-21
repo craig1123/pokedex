@@ -7,11 +7,11 @@ angular.module('pokedex')
       } else {
         return $http({
           method: 'GET',
-          url: 'http://pokeapi.co/api/v2/pokemon/' + num + '/'
+          url: 'https://pokeapi.co/api/v2/pokemon/' + num + '/'
         }).then(function (response) {
           return response.data;
         });
-      } 
+      }
     };
 
 
