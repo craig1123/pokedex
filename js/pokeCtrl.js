@@ -3,15 +3,25 @@ angular.module('pokedex')
 
     $scope.pokeData = function (num) {
       pokeServ.getPokemon(num).then(function (response) {
-        console.log(response);
         if (response === '') {
-          $scope.pokeName = '';
-          $scope.pokepic = '';
-        } else {
-          $scope.pokeName = response.name;
-          $scope.pokepic = response.sprites.front_shiny;
+          $scope.pokeName = "";
+          $scope.pokepic = "http://www.web2.mnr.gov.on.ca/sar/Quiz/match_quiz/img/try-again.png";
+          $scope.number = "";
+          if ($scope.cssToggle === false) {
+            $scope.cssToggle = true;
+          }
+        }
+        else {
+        $scope.pokeName = response.name;
+        $scope.pokepic = response.sprites.front_default;
+        $scope.types = response.types;
+        $scope.number = "";
+        if ($scope.cssToggle === false) {
+          $scope.cssToggle = true;
+        }
         }
       });
     };
 
+    $scope.cssToggle = false;
   });
