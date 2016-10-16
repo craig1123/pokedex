@@ -3,6 +3,14 @@
     src: url(./fonts/PokemonGB.ttf);
 }*/
 /************************************** Start Header Content **************************************/
+.happyBirthday {
+  position: absolute;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+  font-size: 30px;
+}
 .header-content {
   height: 120px;
   width: 100%;

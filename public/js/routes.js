@@ -9,7 +9,7 @@ angular.module('pokedex')
                       })
                       .state('mainSearch', {
                         url: '/pokeSearch',
-                        templateUrl: '../views/mainSearch.html',
+                        templateUrl: './../views/mainSearch.html',
                         controller: 'mainCtrl',
                         controllerAs: 'vm'
                       })

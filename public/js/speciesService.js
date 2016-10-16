@@ -46,7 +46,10 @@ angular.module('pokedex')
           return pokeData;
         }, function () {
           if (searchTerm === 'craig') {
-            return [0, 0, 0, 0, 0, "Everybody clap your hands if you think Craig did a great job."];
+            return [0, 0, 0, 0, 0, "Craig knows all."];
+          }
+          if (searchTerm === 'chris' || 'Chris' || 'Christopher' || 'christopher') {
+            return [0, 0, 0, 0, 0, "A muscley man, a rumored myth, a legend to the Gods. Chris Keenan is as wise as Gandalf the White, but as gentle as lamb. He cures diseases by merely staring at them. "];
           }
           else {
             return "";
