@@ -1,0 +1,485 @@
+/*@font-face {
+    font-family: PokemonGB;
+    src: url(./fonts/PokemonGB.ttf);
+}*/
+/************************************** Start Header Content **************************************/
+.header-content {
+  height: 120px;
+  width: 100%;
+  background-color: #fb0505;
+  box-shadow: 0 5px 10px grey;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+}
+.header-fixed {
+  height: 65px;
+  position: fixed;
+  display: block;
+  top: 0;
+  box-shadow: none;
+}
+    .nav-links {
+      position: absolute;
+      right: 50px;
+      top: 50px;
+      color: yellow;
+      font-family: monospace;
+      font-size: 17px;
+      font-weight: 700;
+      box-shadow: 0 0 10px 2px;
+    }
+    .nav-fixed {
+      top: 23px;
+    }
+    .nav-links > a {
+      text-decoration: none;
+      color: yellow;
+    }
+    .header-logo {
+      padding-top: 25px;
+      transform: rotate(.5deg);
+      margin-left: -20px;
+      height: 200px;
+    }
+    .logo-fixed {
+      position: fixed;
+      height: 60px;
+      margin-left: 70px;
+      padding-top: 10px;
+      margin-right: auto;
+      top: 0;
+    }
+
+.main-content {
+  width: 100%;
+}
+    /***************************** Search Container *****************************/
+    .search-container {
+      margin-top: 80px;
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: center;
+    }
+        .searchField {
+          background-image: url(https://cdn1.iconfinder.com/data/icons/user-interface-elements/154/search-loop-512.png);
+          background-position: left;
+          background-size: 20px 20px;
+          background-repeat: no-repeat;
+          background-position: 5px 5px;
+          font-size: 20px;
+          text-align: left;
+          padding-left: 30px;
+          border-radius: 15px;
+          background-color: lightgray;
+          height: 30px;
+          width: 200px;
+          z-index: 5;
+        }
+        .search-fixed {
+          position: fixed;
+          margin-top: 12px;
+          top: 0;
+          margin-bottom: 25px;
+          width: 200px;
+          margin-left: -8.5%;
+        }
+        /********************************* Pokedex Container **************************************/
+.main-pokedex-container {
+  margin: 0 auto;
+}
+    .pokedex-wrapper {
+      height: 575px;
+      width: 675px;
+      margin: 0 auto;
+      position: relative;  /***************Relative**************/
+    }
+        .pokedex-background-wrapper{
+          position: absolute;
+          height: 96%;
+          width: 100%;
+          margin-top: 2%;
+        }
+                .pokedex-background {
+                  position: absolute;
+                  z-index: 0;
+                  width: 100%;
+                  height: 100%;
+                  border-radius: 95px;
+                  background: #C2F0FB;
+                  box-shadow: 0 0 20px 2px grey;
+                }
+                .background-topLayer {
+                  z-index: 1;
+                  width: 100%;
+                  height: 100%;
+                  border-radius: 95px;
+                  transition: all 1000ms 200ms ease;
+                  background: linear-gradient(#70CBF7, #C2F0FB, #C2F0FB, #C2F0FB, #C2F0FB, #C2F0FB, #C2F0FB, #C2F0FB, #C2F0FB, #C2F0FB, #70CBF7);
+                  opacity: 0;
+                }
+                /*********************************** Dynamic Content **********************************/
+        .pokedex-dynamic-wrapper {
+          z-index: 2;
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          padding: 25px 15%;
+          display: flex;
+          justify-content: center;
+          transition: all 500ms ease;
+          opacity: 0;
+        }
+        .view {
+          width: 100%;
+          height: 100%;
+        }
+        /****************************************** Start Home Page ***********************************/
+            .pokedexLogo {
+              display: flex;
+              justify-content: center;
+              margin-top: 33%;
+            }
+                .pokedexLogo > img {
+                }
+                /****************************** Start Main Search Page ********************************/
+            .info-container {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+            }
+                .poke-pic {
+                  display: flex;
+                  justify-content: center;
+                  height: 200px;
+                  margin: 60px auto 0px auto;
+                }
+                    .poke-pic > img {
+                      height: 100%;
+                    }
+                .poke-name {
+                  font-size: 55px;
+                  margin-top: 50px;
+                  font-weight: 700;
+                  display: flex;
+                  justify-content: center;
+                  font-family: 'PokemonGB', cursive;
+                  color: #0DCDF0;
+                }
+                .details {
+                  color: #0DCDF0;
+                  font-size: 25px;
+                  font-family: cursive;
+                  font-weight: 700;
+                  text-decoration: none;
+                  position: absolute;
+                  margin-left: 195px;
+                  bottom: 120px;
+                }
+                .details:hover {
+                  cursor: pointer;
+                  color: #0a8095;
+                }
+                /********************************** Start Details Page ********************************/
+                .details-header {
+                  display: inline-flex;
+                  margin-left: 22%;
+                  margin-top: 10%;
+                }
+                    .details-name {
+                      font-size: 40px;
+                      font-weight: 700;
+                      font-family: 'PokemonGB', cursive;
+                      color: #0DCDF0;
+                    }
+                    .sprite {
+                      margin-top: -35px;
+                      height: 96px;
+                      margin-left: 15px;
+                    }
+                    .sprite > img {
+                      height: 100%;
+                    }
+                .textInfo {
+                  display: inline-flex;
+                  height: 29%;
+                  margin: 2% 0 0 3%;
+                  color: #0DCDF0;
+                  font-family: cursive;
+                }
+                    .moves {
+                      margin-left: 20px;
+                    }
+                    .type {
+                      margin-left: 20px;
+                    }
+                    .region {
+                    }
+                    .infoTitle {
+                      font-size: 35px;
+                      font-weight: 700;
+                      font-family: 'PokemonGB', cursive;
+                      text-decoration: none;
+                      color: #0DCDF0;
+                    }
+                    .infoTitle:hover {
+                      cursor: pointer;
+                    }
+                    .infoList {
+                      height: 122px;
+                      overflow: auto;
+                      font-size: 20px;
+                    }
+                    .infoH3 {
+                      font-size: 30px;
+                    }
+                    .lower-text-wrapper {
+                    }
+                    .other-title {
+                      font-weight: 700;
+                      font-size: 25px;
+                      font-family: cursive;
+                      color: #0DCDF0;
+                      display: flex;
+                      justify-content: center;
+                      margin-top: -10px;
+                      margin-bottom: 10px;
+                    }
+                    .misc-details {
+                      margin-bottom: 30px;
+                      color: #0DCDF0;
+                      display: flex;
+                      justify-content: center;
+                    }
+                    .misc-text {
+                      margin: auto;
+                    }
+                    .misc-text > h2 {
+                      font-weight: 700;
+                      font-family: cursive;
+                    }
+                    .misc-text > h4 {
+                      font-size: 20px;
+                      font-family: cursive;
+                      display: flex;
+                      justify-content: center;
+                    }
+                    .evo-list {
+                      display: flex;
+                      justify-content: center;
+                      font-size: 25px;
+                      font-family: cursive;
+                      color: #0DCDF0;
+                    }
+                    .evol > h2 {
+                      display: flex;
+                      justify-content: center;
+                      margin-bottom: 20px;
+                      font-size: 30px;
+                      font-family: cursive;
+                      color: #0DCDF0;
+                      font-weight: 700;
+                    }
+                    .evo-element {
+                      font-weight: 700;
+                      margin: auto;
+                    }
+                    .evo-element:hover {
+                      cursor: pointer;
+                    }
+                  /****************************** Random CTA Sytles **********************************/
+                  .random-container {
+                    height: 80%;
+                    width: 100%;
+                  }
+                  .random-pic {
+                    height: 200px;
+                    display: flex;
+                    justify-content: center;
+                    margin: 60px auto;
+                  }
+                      .random-pic > img {
+                        height: 100%;
+                      }
+                  .random-name {
+                    font-size: 55px;
+                    margin-top: 50px;
+                    font-weight: 700;
+                    display: flex;
+                    justify-content: center;
+                    font-family: 'PokemonGB', cursive;
+                    color: #0DCDF0;
+                    /*transition: all 500ms 500ms ease;*/
+                    opacity: 0;
+                  }
+              .gameInput {
+                font-size: 20px;
+                text-align: center;
+                border-radius: 15px;
+                background-color: lightgray;
+                z-index: 5;
+                margin-left: 105px;
+                position: absolute;
+                bottom: 100px;
+              }
+              .video-container {
+                display: flex;
+                justify-content: center;
+                margin-top: 80px;
+              }
+              /*********************************** Region & Type View Styles *******************************/
+          .type-container {
+            height: 100%;
+            width: 100%;
+            padding: 62px 15px 0 15px;
+            columns: 3;
+          }
+          .type-items{
+            display: flex;
+            justify-content: center;
+            font-size: 30px;
+            font-family: cursive;
+            color: #0DCDF0;
+            height: 77px;
+          }
+                    /*************************** Start Pokedex physical/Slide Animation *******************/
+        .pokedex-animated-wrapper {
+          z-index: 4;
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          pointer-events: none;
+        }
+            .pokedex-img-container {
+              transition: all 1000ms ease-in-out;
+              height: 100%;
+              z-index: 5;
+              position: absolute;
+            }
+            .dex-left {
+              left: 0;
+            }
+            .dex-ball {
+              z-index: 6;
+              transition: all 1000ms ease-in-out;
+              margin-left: 33%;
+              opacity: 1;
+              margin-top: 26%;
+              position: absolute;
+              pointer-events: auto;
+            }
+            .dex-right {
+              right: 0;
+            }
+                .pokedex-image {
+                  height: 100%;
+                }
+                .ball-img {
+                  height: 220px;
+                  cursor: pointer;
+                  z-index: 5;
+                }
+                /******************************* Start Footer Content ****************************/
+.footer-content {
+  height: 120px;
+  width: 100%;
+  background-color: #fb0505;
+  position: relative;
+}
+.footer-fixed {
+  margin-top: 3vh;
+}
+    .random-CTA {
+      border-radius: 50%;
+      border: 1px solid black;
+      height: 35px;
+      width: 35px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/en/3/39/Pokeball.PNG');
+      background-size: cover;
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+    }
+        .random-CTA:hover {
+          cursor: pointer;
+}
+.wins {
+  font-size: 35px;
+  margin-top: 10px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  font-family: cursive;
+  color: #0DCDF0;
+  /*transition: all 500ms 500ms ease;
+  opacity: 0;*/
+}
+.wrong {
+  font-size: 35px;
+  margin-top: 50px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  font-family: cursive;
+  color: #0DCDF0;
+}
+.wrong h1 {
+  font-family: cursive;
+}
+/*********************   ngClass Styles   ****************/
+.box {
+  transition: transform 3s ease-in-out;
+}
+.hide {
+  transition: all 1000ms ease-in-out;
+  transform: rotate(360deg);
+  /*transition: all 700ms ease;*/
+  opacity: 0;
+}
+.slideLeft {
+  transform: translateX(-70%);
+}
+.slideRight {
+  transform: translateX(70%);
+}
+.gradient {
+  transition: all;
+  transform: scaleX(1.5);
+  transition: all 1s 200ms;
+  opacity: 1;
+}
+.open {
+  transition: all 500ms ease-in;
+  opacity: 1;
+}
+.showName {
+  transition: all 200ms ease;
+  opacity: 1;
+}
+.region-carousel {
+  height: 100%;
+  width: 100%;
+  padding-top: 80px;
+}
+.carousel-containers {
+  height: 100%;
+  width: 100%;
+}
+.carousel-img {
+  width: 100%;
+  box-shadow: 0 4px 2px -2px gray;
+}
+.carousel-text {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    font-size: 30px;
+    font-family: cursive;
+    color: lightseagreen;
+}
+/****************************   Specials   *************************/
+::-webkit-scrollbar {
+  display: none;
+  color: blue;
+  corner-color: blue;
+}

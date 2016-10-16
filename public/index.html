@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-app="pokedex">
+<!--///////////////////////////////   ANGULAR APP   ///////////////////////////////////////  -->
+
+<head>
+    <!--***************************   Meta Tags   *****************************************  -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+
+    <!--***************************   Styles/CSS   ****************************************  -->
+    <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/en/3/39/Pokeball.PNG">
+    <link rel="stylesheet" href="./styles/reset.css">
+    <!-- <link rel="stylesheet" href="./dist/bundle.css"> -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css">
+    <link rel="stylesheet" href="./styles/styles.css">
+
+</head>
+
+<body ng-controller="mainCtrl">
+    <!--***************************   Header/Nav   ****************************************  -->
+    <header>
+        <div class="header-content">
+          <ul class="nav-links">
+            <a href="./poke-tracker/tracker.html"><li>Poke-tracker</li></a>
+          </ul>
+            <a ui-sref="home" ng-click="cssToggle = !cssToggle"><img class='header-logo' src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/English_Pok%C3%A9mon_logo.svg/2000px-English_Pok%C3%A9mon_logo.svg.png" alt="Pokemon"></a>
+        </div>
+    </header>
+
+    <!--***************************   Main Container   ************************************  -->
+    <main role="main" class='main-content'>
+        <section class="main-pokedex-container">
+            <div class="search-container">
+                <form ng-submit="testData(num); pokeData(num); regionData(num); pokemonID(num); getMoreData(num); route()">
+                    <input class="searchField" ng-model="num" type="text" placeholder="Search pokemon" header-directive autofocus/>
+                </form>
+            </div>
+
+            <div class="pokedex-wrapper" ng-class="{box: cssToggle}">
+                <!--*****************   Static Background   *********************  -->
+                <div class="pokedex-background-wrapper">
+                    <div class="pokedex-background" ng-class="{gradient: cssToggle}">
+                    </div>
+                    <div class="background-topLayer" ng-class="{gradient: cssToggle}">
+                    </div>
+                </div>
+                <!--*****************   Dynamic Content   ***********************  -->
+                <div class="pokedex-dynamic-wrapper" ng-class="{open: cssToggle}">
+
+                    <ui-view class="view"></ui-view>
+
+                </div>
+                <!--*****************   Slide Animations   **********************  -->
+                <div class="pokedex-animated-wrapper">
+                    <div class="pokedex-img-container dex-left" ng-class="{slideLeft: cssToggle}">
+                        <img class='pokedex-image' src="./img/Pokedex-leftside.png" alt="left">
+                    </div>
+                    <div class="dex-ball" ng-class="{hide: cssToggle}">
+                        <img class='ball-img' ng-click="cssToggle = !cssToggle" src="./img/Pokedex-ball-trans.png" alt="center">
+                    </div>
+                    <div class="pokedex-img-container dex-right" ng-class="{slideRight: cssToggle}">
+                        <img class='pokedex-image' src="./img/Pokedex-rightside.png" alt="right">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!--***************************   Footer   ********************************************  -->
+    <footer class='footer-content'>
+        <a ui-sref="randomSearch">
+            <button type="button" class="random-CTA" ng-click="randomizer(); startGame()"></button>
+        </a>
+    </footer>
+
+    <!-- ******************************* SCRIPT TAGS *********************************** -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+    <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+    <!-- <script src="./dist/bundle.js"></script> -->
+    <script src="./js/app.js"></script>
+    <script src="./js/mainCtrl.js"></script>
+    <script src="./js/pokeServ.js"></script>
+    <script src="./js/regionService.js"></script>
+    <script src="./js/headerDirective.js"></script>
+    <script src="./js/landingSrv.js"></script>
+    <script src="./js/routes.js"></script>
+    <script src="./js/speciesService.js"></script>
+    <script src="./js/carouselDirective.js"></script>
+</body>
+</html>
