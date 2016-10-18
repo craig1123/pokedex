@@ -1,1 +1,1 @@
-angular.module("pokedex", []);
+angular.module("pokedex", ['ui.router']);

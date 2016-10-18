@@ -1,0 +1,61 @@
+<div class="details-header">
+  <div class="details-name">
+    <p>{{ testName }}</p>
+  </div>
+  <div class="sprite">
+    <img src="{{ pokeImg }}" alt="" />
+  </div>
+</div>
+<div class="textInfo">
+    <div class="region">
+        <h3 class="infoH3"><a ui-sref="regions" class="infoTitle">{{regionT}}</a></h3>
+        <div class="list-container">
+            <ul class="infoList">
+                <li class="listItems" ng-repeat="region in regions">{{ region }}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="type">
+        <h3 class="infoH3"><a ui-sref="types" class="infoTitle">{{typeT}}</a></h3>
+        <div class="list-container">
+            <ul class="infoList">
+                <li class="listItems" ng-repeat='type in types'>{{ type.type.name }}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="moves">
+        <h3 class="infoH3"><a class="infoTitle">{{moveT}}</a> ⇕</h3>
+        <div class="list-container">
+            <ul class="infoList">
+                <li class="listItems" ng-repeat="move in moves">{{ move.move.name }}</li>
+            </ul>
+        </div>
+    </div>
+  </div>
+    <div class="lower-text-wrapper">
+        <h2 class="other-title"> {{ otherInfoT }}</h2>
+        <div class="misc-details">
+        <div class="misc-text">
+          <h2>National ID:</h2>
+          <h4>#{{ number }}</h4>
+        </div>
+        <div class="misc-text">
+          <h2>Habitat:</h2>
+          <h4>{{ habitat }}</h4>
+        </div>
+        <div class="misc-text">
+          <h2>Shape:</h2>
+          <h4>{{ shape }}</h4>
+        </div>
+        <div class="misc-text">
+          <h2>Growth rate:</h2>
+          <h4>{{ growth }}</h4>
+        </div>
+      </div>
+      <div class="evol">
+        <h2>{{ evoT }}</h2>
+        <ul class="evo-list">
+          <li ng-click="testData(stages); pokeData(stages); regionData(stages); pokemonID(stages); getMoreData(stages)" ng-repeat="stages in evolution track by $index" class="evo-element">{{ stages }}</li>
+        </ul>
+      </div>
+    </div>

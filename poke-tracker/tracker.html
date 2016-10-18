@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="tracker">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./styles/base.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/en/3/39/Pokeball.PNG">
+    <title>Pokedex</title>
+</head>
+
+<body ng-controller='trackerCtrl'>
+    <header>
+        <div class="headerTop"></div>
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/English_Pok%C3%A9mon_logo.svg/2000px-English_Pok%C3%A9mon_logo.svg.png" alt="Pokemon" />
+        </div>
+    </header>
+
+    <input type="text" placeholder="Search Pokemon" ng-model="filterText">
+
+
+    <div class="poke-wrapper">
+        <div class="pokeCard" ng-click="flipCard = !flipCard" ng-class="{flip: flipCard}" ng-repeat='pokemon in pokemons | filter: {name: filterText}' ng-class="{noShadow: flipCard}">
+            <h3 ng-hide="flipCard" class="pokemonName">{{pokemon.id}} {{pokemon.name}}</h3>
+            <div ng-hide="flipCard" class="pokemon-image-container">
+                <img ng-src="{{pokemon.img}}" />
+            </div>
+            <div ng-show="flipCard" class="" ng-class="{flip: flipCard}">
+              Mark as
+            </div>
+            <div ng-show="flipCard" class="" ng-class="{flip: flipCard}">
+              a favorite!
+            </div>
+            <button class="test" ng-show="flipCard" type="button" ng-click='fav = !fav; flipCard = !flipCard' ng-class="{favorite: fav, flip: flipCard}"></button >
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer">
+
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
+    <script src="./js/trackerApp.js"></script>
+    <script type="text/javascript" src="./js/trackerCtrl.js"></script>
+    <script type="text/javascript" src="./js/dataService.js"></script>
+    <script type="text/javascript" src="./js/jq.js"></script>
+</body>
+
+</html>

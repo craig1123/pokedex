@@ -1,0 +1,14 @@
+<div class="random-container">
+  <div class="random-name" ng-class="{showName: showName}">
+    <p>{{ testName }}</p>
+  </div>
+  <div class="wins">
+    You got {{gameRight}} pokemon!
+  </div>
+  <div class="random-pic">
+    <img src="{{pokeImg}}" alt="" />
+  </div>
+  <form ng-submit="gameChecker(nameGuess)">
+    <input class="gameInput" ng-model="nameGuess" type="text" placeholder="Who's that Pokemon!">
+  </form>
+</div>
