@@ -20,7 +20,7 @@ angular.module('pokedex')
         };
 
        var talking = function() {
-        responsiveVoice.speak($scope.desc, "Australian Female");
+        responsiveVoice.speak($scope.desc, "UK English Male");
       };
 
         $scope.getMoreData = function(pokemon) {
