@@ -19,7 +19,6 @@
 
     <input type="text" placeholder="Search Pokemon" ng-model="filterText">
 
-
     <div class="poke-wrapper">
         <div class="pokeCard" ng-click="flipCard = !flipCard" ng-class="{flip: flipCard}" ng-repeat='pokemon in pokemons | filter: {name: filterText}' ng-class="{noShadow: flipCard}">
             <h3 ng-hide="flipCard" class="pokemonName">{{pokemon.id}} {{pokemon.name}}</h3>
