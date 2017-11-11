@@ -63,7 +63,7 @@ angular.module('pokedex')
             } else {
                 $scope.pictureID = checkVal;
                 var temp = landingSrv.getName(input);
-                $scope.pokeImg = "https://www.serebii.net/art/th/" + $scope.pictureID + ".png";//*****This is not secure
+                $scope.pokeImg = "https://www.serebii.net/art/th/" + $scope.pictureID + ".png";
                 $scope.testName = temp.charAt(0).toUpperCase() + temp.slice(1);
             }
         };

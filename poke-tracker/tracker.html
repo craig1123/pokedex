@@ -3,21 +3,175 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="./styles/base.css">
-    <link rel="stylesheet" href="./styles/style.css">
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/en/3/39/Pokeball.PNG">
     <title>Pokedex</title>
+    <style>
+    html,body,div,span,h1,a,img,strong,ol,ul,li,footer,header,menu,nav,section,{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}footer,header,section{display:block}body{line-height:1}ol,ul{list-style:none}
+    body, html {
+        font-family: "Exo 2", "Helvetica Neue", Helvetica, sans-serif;
+        font-weight: 300;
+        font-size: 1.2em;
+        line-height: 1.2em;
+        background: #EEEEEE;
+        color: #726F66;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    strong {
+        font-weight: 600;
+    }
+    h1, h3 {
+        font-family: 'Roboto Slab', "Helvetica Neue", Helvetica, sans-serif;
+        font-weight: 700;
+        color: #726F66;
+    }
+    h1 {
+        display: block;
+        font-size: 2em;
+        margin-top: 0.67em;
+        margin-bottom: 0.67em;
+        margin-left: 0;
+        margin-right: 0;
+        font-weight: bold;
+    }    ​
+    h3 {
+        display: block;
+        font-size: 1.17em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        margin-left: 0;
+        margin-right: 0;
+        font-weight: bold;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+    }
+    input {
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 10px;
+      height: 27.5px;
+      text-align: center;
+      background-image: url(https://cdn1.iconfinder.com/data/icons/user-interface-elements/154/search-loop-512.png);
+      background-position: left;
+      background-size: 20px 20px;
+      background-repeat: no-repeat;
+      background-position: 5px 5px;
+    }
+    .input {
+      margin: 1vh;
+      text-align: center;
+    }
+    .header-content {
+      height: 120px;
+      width: 100%;
+      background-color: #fb0505;
+      box-shadow: 0 5px 10px grey;
+      z-index: 5;
+      display: flex;
+      justify-content: center;
+    }
+    .header-fixed {
+      width: 100vw;
+      height: 8vh;
+      position: fixed;
+      top: 0;
+      z-index: 5
+    }
+    .header-logo {
+      width: 70%;
+    }
+    .logo-fixed {
+      position: fixed;
+      height: 6vh;
+      width: 8vw;
+      margin-left: 5vw;
+      margin-right: auto;
+      margin-top: 1vh;
+      top: 0;
+      z-index: 5;
+    }
+    .poke-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .pokeCard {
+      width: 300px;
+      transition: all 2s ease, box-shadow 0.2s ease-in-out;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      margin: 20px;
+      padding: 20px;
+      background-color: white;
+      text-align: center;
+    }
+    .pokeCard:hover {
+      transition: all 2s ease, box-shadow .2 ease-in-out;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+      cursor: pointer;
+    }
+    .pokemonName {
+        font-family: 'pixel', cursive;
+        color: black;
+        text-shadow: 0 0 6px rgba(0,0,0,0.29);
+        font-size: 20px;
+    }
+    .pokemon-image-container {
+        height: 200px;
+        width: 200px;
+        margin: 0 auto;
+        padding: 10px;
+    }
+    .flip {
+      transition: transform 2s ease;
+      transform: rotateY(180deg);
+    }
+    .flip .pokeCard:hover {
+      transition: box-shadow .2 ease-in-out;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+      cursor: pointer;
+    }
+    .search-fixed {
+      position: fixed;
+      margin-top: 1vh;
+      top: 0;
+      z-index: 5;
+    }
+    .footer{
+      bottom: 0;
+      height: 25vh;
+      width: 100vw;
+      background: #EA2225;
+    }
+    .favorite {
+      background-color: red;
+    }
+    .test {
+      height: 30px;
+      width: 50px;
+    }
+    .test:hover {
+      cursor: pointer;
+    }
+    </style>
 </head>
 
 <body ng-controller='trackerCtrl'>
     <header>
-        <div class="headerTop"></div>
-        <div class="logo">
-            <a href="./../index.html"><img src="./../img/Pokedex.png" alt="Pokemon" /></a>
+        <div class="header-content">
+            <a href="./../index.html" style="text-align: center;">
+                <img class='header-logo' src="./../img/Pokedex.png" alt="Pokemon">
+            </a>
         </div>
     </header>
-
-    <input type="text" placeholder="Search Pokemon" ng-model="filterText">
+    <div class="input">
+      <input type="text" placeholder="Search Pokemon" ng-model="filterText">
+    </div>
 
     <div class="poke-wrapper">
         <div class="pokeCard" ng-click="flipCard = !flipCard" ng-class="{flip: flipCard}" ng-repeat='pokemon in pokemons | filter: {name: filterText}' ng-class="{noShadow: flipCard}">
@@ -36,9 +190,7 @@
     </div>
 
     <footer>
-        <div class="footer">
-
-        </div>
+        <div class="footer"></div>
     </footer>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
