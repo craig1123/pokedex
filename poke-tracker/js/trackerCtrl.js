@@ -4,15 +4,10 @@ angular
 
   $scope.getPokemon = function() {
     dataService.getPokemon().then(function(pokemon) {
+      console.log(pokemon);
       $scope.pokemons = pokemon;
     });
   };
-
-// $scope.setDelay = function() {
-//   $timeout(function() {
-//     $scope.delay = !$scope.delay;
-//   }, 500);
-// };
 
 $scope.delay = false;
 $scope.fav = false;

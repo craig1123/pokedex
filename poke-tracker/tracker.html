@@ -74,23 +74,12 @@
       display: flex;
       justify-content: center;
     }
-    .header-fixed {
-      width: 100vw;
-      height: 8vh;
-      position: fixed;
-      top: 0;
-      z-index: 5
-    }
     .header-logo {
       width: 70%;
     }
     .logo-fixed {
       position: fixed;
-      height: 6vh;
-      width: 8vw;
-      margin-left: 5vw;
-      margin-right: auto;
-      margin-top: 1vh;
+      justify-content: flex-start;
       top: 0;
       z-index: 5;
     }
@@ -138,7 +127,7 @@
     }
     .search-fixed {
       position: fixed;
-      margin-top: 1vh;
+      margin-top: 5vh;
       top: 0;
       z-index: 5;
     }
@@ -174,8 +163,8 @@
     </div>
 
     <div class="poke-wrapper">
-        <div class="pokeCard" ng-click="flipCard = !flipCard" ng-class="{flip: flipCard}" ng-repeat='pokemon in pokemons | filter: {name: filterText}' ng-class="{noShadow: flipCard}">
-            <h3 ng-hide="flipCard" class="pokemonName">{{pokemon.id}} {{pokemon.name}}</h3>
+        <div class="pokeCard" ng-click="flipCard = !flipCard" ng-class="{flip: flipCard}" ng-repeat='pokemon in pokemons | filter: {name: filterText, id: filterText}' ng-class="{noShadow: flipCard}">
+            <h3 ng-hide="flipCard" class="pokemonName">#{{pokemon.id}} {{pokemon.name}}</h3>
             <div ng-hide="flipCard" class="pokemon-image-container">
                 <img ng-src="{{pokemon.img}}" />
             </div>
