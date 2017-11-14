@@ -32,7 +32,6 @@ angular.module('pokedex')
                     $scope.growth = '';
                     $scope.evo = '';
                     $scope.number = '';
-                    $scope.otherInfoT = '';
                     $scope.evoT = '';
                 } else {
                     $scope.habitat = results[0];
@@ -40,7 +39,6 @@ angular.module('pokedex')
                     $scope.growth = results[2];
                     $scope.evo = results[3];
                     $scope.number = results[4];
-                    $scope.otherInfoT = "Misc";
                     $scope.evoT = 'Evolution';
                     $scope.desc = results[5];
                     talking();

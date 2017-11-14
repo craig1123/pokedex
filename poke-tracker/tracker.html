@@ -3,10 +3,15 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="theme-color" content="#fff">
+    <meta name="author" content="Craig S. Walker">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="pokedex, pokemon, pikachu, bulbasaur, charmander, pokedex database">
+    <meta name="description" content="A guide to Pokédex stats in the Pokémon games.">
+    <title>Pokedex | A pokemon database</title>
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/en/3/39/Pokeball.PNG">
-    <title>Pokedex</title>
     <style>
-    html,body,div,span,h1,a,img,strong,ol,ul,li,footer,header,menu,nav,section,{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}footer,header,section{display:block}body{line-height:1}ol,ul{list-style:none}
+    html,body,div,a,img,footer,header{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}footer,header{display:block}body{line-height:1}
     body, html {
         font-family: "Exo 2", "Helvetica Neue", Helvetica, sans-serif;
         font-weight: 300;
@@ -18,25 +23,11 @@
         height: 100%;
         margin: 0;
         padding: 0;
-    }
-    strong {
-        font-weight: 600;
-    }
-    h1, h3 {
+    } ​
+    h2 {
         font-family: 'Roboto Slab', "Helvetica Neue", Helvetica, sans-serif;
         font-weight: 700;
         color: #726F66;
-    }
-    h1 {
-        display: block;
-        font-size: 2em;
-        margin-top: 0.67em;
-        margin-bottom: 0.67em;
-        margin-left: 0;
-        margin-right: 0;
-        font-weight: bold;
-    }    ​
-    h3 {
         display: block;
         font-size: 1.17em;
         margin-top: 1em;
@@ -55,33 +46,29 @@
       border-radius: 10px;
       height: 27.5px;
       text-align: center;
-      background-image: url(https://cdn1.iconfinder.com/data/icons/user-interface-elements/154/search-loop-512.png);
-      background-position: left;
-      background-size: 20px 20px;
-      background-repeat: no-repeat;
-      background-position: 5px 5px;
+    }
+    input:focus {
+      outline: none;
     }
     .input {
-      margin: 1vh;
-      text-align: center;
+      display: flex;
+      align-items: center;
     }
     .header-content {
-      height: 120px;
+      height: 14%;
       width: 100%;
       background-color: #fb0505;
       box-shadow: 0 5px 10px grey;
       z-index: 5;
       display: flex;
       justify-content: center;
+      position: fixed;
+      top: 0;
+      z-index: 5;
     }
     .header-logo {
       width: 70%;
-    }
-    .logo-fixed {
-      position: fixed;
-      justify-content: flex-start;
-      top: 0;
-      z-index: 5;
+      text-align: center;
     }
     .poke-wrapper {
       width: 100%;
@@ -89,13 +76,14 @@
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: center;
+      margin-top: 15%;
     }
     .pokeCard {
-      width: 300px;
+      width: 200px;
       transition: all 2s ease, box-shadow 0.2s ease-in-out;
       box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-      margin: 20px;
-      padding: 20px;
+      margin: 10px;
+      padding: 10px;
       background-color: white;
       text-align: center;
     }
@@ -111,8 +99,8 @@
         font-size: 20px;
     }
     .pokemon-image-container {
-        height: 200px;
-        width: 200px;
+        height: 150px;
+        width: 150px;
         margin: 0 auto;
         padding: 10px;
     }
@@ -128,14 +116,9 @@
     .search-fixed {
       position: fixed;
       margin-top: 5vh;
+      right: 1%;
       top: 0;
       z-index: 5;
-    }
-    .footer{
-      bottom: 0;
-      height: 25vh;
-      width: 100vw;
-      background: #EA2225;
     }
     .favorite {
       background-color: red;
@@ -143,28 +126,41 @@
     .test {
       height: 30px;
       width: 50px;
-    }
-    .test:hover {
       cursor: pointer;
+    }
+    @media screen and (max-width: 768px) {
+      .pokeCard {
+        width: 140px;
+      }
+      .pokemon-image-container {
+        height: 125px;
+        width: 125px;
+      }
     }
     </style>
 </head>
 
 <body ng-controller='trackerCtrl'>
-    <header>
-        <div class="header-content">
-            <a href="./../index.html" style="text-align: center;">
-                <img class='header-logo' src="./../img/Pokedex.png" alt="Pokemon">
-            </a>
-        </div>
+    <header class="header-content">
+      <div>
+        <a class='header-logo' href="./../index.html">
+          <img src="./../img/Pokedex.png" alt="Pokemon">
+        </a>
+      </div>
+      <div class="input">
+        <input type="text" placeholder="Search Pokemon" ng-model="filterText">
+      </div>
     </header>
-    <div class="input">
-      <input type="text" placeholder="Search Pokemon" ng-model="filterText">
+
+    <div ng-if="delay" style="text-align: center;">
+        <br />
+        <h2>Loading Pokemon...</h2>
+        <img style="width: inherit;" alt="loading" src="../img/loading-char.gif" />
     </div>
 
-    <div class="poke-wrapper">
-        <div class="pokeCard" ng-click="flipCard = !flipCard" ng-class="{flip: flipCard}" ng-repeat='pokemon in pokemons | filter: {name: filterText, id: filterText}' ng-class="{noShadow: flipCard}">
-            <h3 ng-hide="flipCard" class="pokemonName">#{{pokemon.id}} {{pokemon.name}}</h3>
+    <div class="poke-wrapper" ng-if="!delay">
+        <div class="pokeCard" ng-click="flipCard = !flipCard" ng-class="{flip: flipCard}" ng-repeat='pokemon in pokemons | filter: {id: filterText, name: filterText}' ng-class="{noShadow: flipCard}">
+            <h2 ng-hide="flipCard" class="pokemonName">#{{pokemon.id}} {{pokemon.name}}</h3>
             <div ng-hide="flipCard" class="pokemon-image-container">
                 <img ng-src="{{pokemon.img}}" />
             </div>
@@ -178,16 +174,11 @@
         </div>
     </div>
 
-    <footer>
-        <div class="footer"></div>
-    </footer>
-
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
     <script src="./js/trackerApp.js"></script>
     <script type="text/javascript" src="./js/trackerCtrl.js"></script>
     <script type="text/javascript" src="./js/dataService.js"></script>
-    <script type="text/javascript" src="./js/jq.js"></script>
 </body>
 
 </html>

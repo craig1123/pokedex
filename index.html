@@ -3,13 +3,17 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="theme-color" content="#fff">
+    <meta name="author" content="Craig S. Walker">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex | A pokemon device</title>
+    <meta name="keywords" content="pokedex, pokemon, pikachu, bulbasaur, charmander, pokedex database">
+    <meta name="description" content="A guide to Pokédex stats in the Pokémon games.">
+    <title>Pokedex | A pokemon database</title>
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/en/3/39/Pokeball.PNG">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css">
     <style>
-    html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, ul, li, footer, header {
+    html, body, div, h1, h2, h3, p, a, ul, li, footer, header {
         margin: 0;
         padding: 0;
         border: 0;
@@ -18,31 +22,21 @@
         vertical-align: baseline;
         box-sizing: border-box;
     }
-    article, aside, details, figcaption, figure,
-    footer, header, hgroup, menu, nav, section {
+    footer, header, section {
         display: block;
     }
     body {
         line-height: 1;
+        overflow-x: hidden;
     }
-    ol, ul {
+    ul {
         list-style: none;
     }
-    blockquote, q {
-        quotes: none;
-    }
-    blockquote:before, blockquote:after,
-    q:before, q:after {
-        content: '';
-        content: none;
-    }
-    table {
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
-
     h1,h2,h3,h4 {
       font-family: 'Lato', sans-serif;
+    }
+    input:focus {
+      outline: none
     }
     .header-content {
       height: 120px;
@@ -98,11 +92,6 @@
       justify-content: center;
     }
     .searchField {
-      background-image: url(https://cdn1.iconfinder.com/data/icons/user-interface-elements/154/search-loop-512.png);
-      background-position: left;
-      background-size: 20px 20px;
-      background-repeat: no-repeat;
-      background-position: 5px 5px;
       font-size: 20px;
       text-align: left;
       padding-left: 30px;
@@ -120,7 +109,6 @@
       width: 200px;
       margin-left: -8.5%;
     }
-    /********************************* Pokedex Container **************************************/
     .main-pokedex-container {
       margin: 0 auto;
     }
@@ -154,7 +142,6 @@
       background: linear-gradient(#70CBF7, #C2F0FB, #C2F0FB, #C2F0FB, #C2F0FB, #C2F0FB, #C2F0FB, #C2F0FB, #C2F0FB, #C2F0FB, #70CBF7);
       opacity: 0;
     }
-    /*********************************** Dynamic Content **********************************/
     .pokedex-dynamic-wrapper {
       z-index: 2;
       position: absolute;
@@ -169,11 +156,12 @@
     .view {
       width: 100%;
       height: 100%;
+      color: #186a79;
     }
     .pokedexLogo {
       display: flex;
       justify-content: center;
-      margin-top: 33%;
+      margin-top: 20%;
     }
     .info-container {
       position: absolute;
@@ -184,44 +172,40 @@
       display: flex;
       justify-content: center;
       height: 200px;
-      margin: 60px auto 0px auto;
     }
     .poke-pic > img {
       height: 100%;
     }
     .poke-name {
-      font-size: 55px;
-      margin-top: 50px;
+      font-size: 50px;
       font-weight: 700;
       display: flex;
       justify-content: center;
       font-family: 'PokemonGB', cursive;
-      color: #0DCDF0;
+      margin-top: 40px;
+      margin-bottom: 10px;
     }
     .details {
-      color: #0DCDF0;
       font-size: 25px;
       font-family: cursive;
       font-weight: 700;
       text-decoration: none;
       position: absolute;
-      margin-left: 195px;
-      bottom: 120px;
+      top: 30px;
+      right: 80px;
+      color: #0a8095;
+      cursor: pointer;
     }
     .details:hover {
-      cursor: pointer;
-      color: #0a8095;
+      color: #285d67;
     }
     .details-header {
       display: inline-flex;
-      margin-left: 22%;
-      margin-top: 10%;
     }
     .details-name {
       font-size: 40px;
       font-weight: 700;
       font-family: 'PokemonGB', cursive;
-      color: #0DCDF0;
     }
     .sprite {
       margin-top: -35px;
@@ -232,41 +216,32 @@
       height: 100%;
     }
     .textInfo {
-      display: inline-flex;
-      height: 29%;
-      margin: 2% 0 0 3%;
-      color: #0DCDF0;
+      display: flex;
+      flex-wrap: wrap;
       font-family: cursive;
     }
-    .moves {
-      margin-left: 20px;
-    }
-    .type {
-      margin-left: 20px;
+    .region {
+      margin-right: 15px;
     }
     .infoTitle {
-      font-size: 35px;
       font-weight: 700;
       font-family: 'PokemonGB', cursive;
       text-decoration: none;
-      color: #0DCDF0;
-    }
-    .infoTitle:hover {
       cursor: pointer;
     }
     .infoList {
-      height: 122px;
       overflow: auto;
       font-size: 20px;
+      height: 75px;
     }
     .infoH3 {
-      font-size: 30px;
+      font-size: 26px;
+      margin: 10px 0;
     }
     .other-title {
       font-weight: 700;
       font-size: 25px;
       font-family: cursive;
-      color: #0DCDF0;
       display: flex;
       justify-content: center;
       margin-top: -10px;
@@ -274,7 +249,6 @@
     }
     .misc-details {
       margin-bottom: 30px;
-      color: #0DCDF0;
       display: flex;
       justify-content: center;
     }
@@ -285,27 +259,8 @@
       font-weight: 700;
       font-family: cursive;
     }
-    .misc-text > h4 {
-      font-size: 20px;
-      font-family: cursive;
-      display: flex;
-      justify-content: center;
-    }
     .evo-list {
-      display: flex;
-      justify-content: center;
-      font-size: 25px;
       font-family: cursive;
-      color: #0DCDF0;
-    }
-    .evol > h2 {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-      font-size: 30px;
-      font-family: cursive;
-      color: #0DCDF0;
-      font-weight: 700;
     }
     .evo-element {
       font-weight: 700;
@@ -322,18 +277,15 @@
       height: 200px;
       display: flex;
       justify-content: center;
-      margin: 60px auto;
     }
     .random-pic > img {
       height: 100%;
     }
     .random-name {
       font-size: 55px;
-      margin-top: 50px;
       font-weight: 700;
       display: flex;
       justify-content: center;
-      color: #0DCDF0;
       opacity: 0;
     }
     .gameInput {
@@ -342,9 +294,7 @@
       border-radius: 15px;
       background-color: lightgray;
       z-index: 5;
-      margin-left: 105px;
-      position: absolute;
-      bottom: 100px;
+      margin-top: 25px;
     }
     .video-container {
       display: flex;
@@ -355,14 +305,13 @@
       height: 100%;
       width: 100%;
       padding: 62px 15px 0 15px;
-      columns: 3;
+      overflow: auto;
     }
     .type-items{
       display: flex;
       justify-content: center;
       font-size: 30px;
       font-family: cursive;
-      color: #0DCDF0;
       height: 77px;
     }
     .pokedex-animated-wrapper {
@@ -406,7 +355,8 @@
       height: 120px;
       width: 100%;
       background-color: #fb0505;
-      position: relative;
+      position: absolute;
+      bottom: 0;
     }
     .random-CTA {
       border-radius: 50%;
@@ -423,13 +373,12 @@
       cursor: pointer;
     }
     .wins {
-      font-size: 35px;
+      font-size: 30px;
       margin-top: 10px;
       font-weight: 700;
       display: flex;
       justify-content: center;
       font-family: cursive;
-      color: #0DCDF0;
     }
     .wrong {
       font-size: 35px;
@@ -438,7 +387,6 @@
       display: flex;
       justify-content: center;
       font-family: cursive;
-      color: #0DCDF0;
     }
     .wrong h1 {
       font-family: cursive;
