@@ -24,6 +24,9 @@
         margin: 0;
         padding: 0;
     } ​
+    body::-webkit-scrollbar, html::-webkit-scrollbar {
+        display: none;
+    }
     h2 {
         font-family: 'Roboto Slab', "Helvetica Neue", Helvetica, sans-serif;
         font-weight: 700;
@@ -72,11 +75,13 @@
     }
     .poke-wrapper {
       width: 100%;
+      height: 97%;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: center;
       margin-top: 15%;
+      overflow: auto;
     }
     .pokeCard {
       width: 200px;
@@ -158,7 +163,7 @@
         <img style="width: inherit;" alt="loading" src="../img/loading-char.gif" />
     </div>
 
-    <div class="poke-wrapper" ng-if="!delay">
+    <div class="poke-wrapper" ng-if="!delay" when-scrolled="loadImages()">
         <div class="pokeCard" ng-click="flipCard = !flipCard" ng-class="{flip: flipCard}" ng-repeat='pokemon in pokemons | filter: {id: filterText, name: filterText}' ng-class="{noShadow: flipCard}">
             <h2 ng-hide="flipCard" class="pokemonName">#{{pokemon.id}} {{pokemon.name}}</h3>
             <div ng-hide="flipCard" class="pokemon-image-container">
@@ -174,7 +179,6 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
     <script src="./js/trackerApp.js"></script>
     <script type="text/javascript" src="./js/trackerCtrl.js"></script>
