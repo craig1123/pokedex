@@ -47,13 +47,6 @@
       display: flex;
       justify-content: center;
     }
-    .header-fixed {
-      height: 65px;
-      position: fixed;
-      display: block;
-      top: 0;
-      box-shadow: none;
-    }
     .nav-links {
       position: absolute;
       right: 15px;
@@ -64,23 +57,12 @@
       font-weight: 700;
       box-shadow: 0 0 10px 2px;
     }
-    .nav-fixed {
-      top: 23px;
-    }
     .nav-links > a {
       text-decoration: none;
       color: yellow;
     }
     .header-logo {
       width: 90%;
-    }
-    .logo-fixed {
-      position: fixed;
-      height: 60px;
-      margin-left: 70px;
-      padding-top: 10px;
-      margin-right: auto;
-      top: 0;
     }
     .main-content {
       width: 100%;
@@ -100,14 +82,6 @@
       height: 30px;
       width: 200px;
       z-index: 5;
-    }
-    .search-fixed {
-      position: fixed;
-      margin-top: 12px;
-      top: 0;
-      margin-bottom: 25px;
-      width: 200px;
-      margin-left: -8.5%;
     }
     .main-pokedex-container {
       margin: 0 auto;
@@ -358,6 +332,15 @@
       position: absolute;
       bottom: 0;
     }
+    .made-by {
+      color: yellow;
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+    }
+    .made-by:hover {
+      opacity: .8;
+    }
     .random-CTA {
       border-radius: 50%;
       border: 1px solid black;
@@ -486,7 +469,7 @@
             </a>
         </div>
         <ul class="nav-links">
-            <a href="./poke-tracker/tracker.html"><li>Poke-tracker</li></a>
+            <a href="./poke-tracker/tracker.html"><li>See all Pokemon!</li></a>
         </ul>
     </header>
 
@@ -523,6 +506,7 @@
         </section>
     </main>
     <footer class='footer-content'>
+        <a class="made-by" href="https://craig1123.github.io/">Made by Craig Walker</a>
         <a ui-sref="randomSearch">
             <button type="button" class="random-CTA" ng-click="randomizer(); startGame()"></button>
         </a>
@@ -537,7 +521,6 @@
     <script src="./js/mainCtrl.js"></script>
     <script src="./js/pokeServ.js"></script>
     <script src="./js/regionService.js"></script>
-    <script src="./js/headerDirective.js"></script>
     <script src="./js/landingSrv.js"></script>
     <script src="./js/routes.js"></script>
     <script src="./js/speciesService.js"></script>

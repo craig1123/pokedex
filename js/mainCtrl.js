@@ -19,7 +19,7 @@ angular.module('pokedex')
             });
         };
 
-       var talking = function() {
+      var talking = function() {
         responsiveVoice.speak($scope.desc, "UK English Male");
       };
 
@@ -50,9 +50,9 @@ angular.module('pokedex')
             $scope.cssToggle = true;
             var checkVal = landingSrv.getID(input);
             if (checkVal === 'invalid') {
-              if (input === 'craig') {
+              if (input === 'craig' || input === 'chris' || input === 'hannah' || input === 'sarah') {
                 $scope.pokeImg = "";
-                $scope.testName = "The End";
+                $scope.testName = "Winner";
               }
               else {
                 $scope.pokeImg = 'https://pbs.twimg.com/profile_images/580498151703973888/UkkIZu0M.png';
