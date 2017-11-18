@@ -30,7 +30,7 @@ angular.module('tracker').service('dataService', function($http) {
         method: 'GET',
         url: 'https://pokeapi.co/api/v2/pokemon-species/' + url + '/'
       }).then(function (response) {
-        console.log('species', res);
+        console.log('species', response.data);
         var data = response.data;
         var egg_groups = [];
         for (var i = 0; i < data.egg_groups.length; i++) {

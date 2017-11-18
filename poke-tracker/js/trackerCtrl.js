@@ -1,6 +1,13 @@
-angular.module('tracker').controller('trackerCtrl', function($scope, dataService) {
+angular.module('tracker').controller('trackerCtrl', function($scope, dataService, regionService) {
 
   $scope.delay = true;
+  $scope.modal = false;
+  $scope.pokemons = [];
+  $scope.counter = 24;
+  $scope.loadImages = function() {
+      $scope.pokemons = $scope.pokes.slice(0, $scope.counter)
+      $scope.counter += 24;
+  };
   $scope.getPokemon = function() {
     dataService.getPokemon().then(function(pokemon) {
       $scope.pokes = pokemon;
@@ -11,13 +18,6 @@ angular.module('tracker').controller('trackerCtrl', function($scope, dataService
 
   $scope.getPokemon();
 
-  $scope.pokemons = [];
-  $scope.counter = 24;
-  $scope.loadImages = function() {
-      $scope.pokemons = $scope.pokes.slice(0, $scope.counter)
-      $scope.counter += 24;
-  };
-
   $scope.scrollTop = function() {
     var top = document.getElementById('poke-wrapper');
     top.scrollTop = 0;
@@ -25,17 +25,33 @@ angular.module('tracker').controller('trackerCtrl', function($scope, dataService
   }
 
   $scope.flipIt = function(pokemon) {
-    // flip animation start
+    $scope.pokeModal = true;
+    var modal = document.getElementById('poke-modal');
+    document.body.style.overflowY = 'hidden';
+    document.getElementById('poke-wrapper').style.overflowY = 'hidden';
+    modal.classList.remove('out');
+    modal.classList.add('unfold-modal');
+
     dataService.getMoreDetails(pokemon).then(function(res) {
       $scope.selectedPokemon = res;
-      // renderStats(res);
+      renderStats(res);
     });
     dataService.getPokemonSpecies(pokemon).then(function(res) {
       dataService.getEvolution(res.evolution_chain).then(function(evoChain) {
-        $scope.evoChain = evoChain;
+        $scope.evolution = evoChain;
       });
       $scope.selectedSpecies = res;
     })
+    $scope.regions = regionService.getRegions(pokemon);
+  }
+
+  $scope.removeModal = function() {
+    var modal = document.getElementById('poke-modal');
+    $scope.pokeModal = false;
+    document.body.style.overflowY = '';
+    document.getElementById('poke-wrapper').style.overflowY = '';
+    modal.classList.remove('unfold-modal');
+    modal.classList.add('out');
   }
 
 
@@ -69,12 +85,10 @@ angular.module('tracker').controller('trackerCtrl', function($scope, dataService
     var smoothedValue = smoothExponentially(statValue, maxStat);
     return smoothedValue / maxStat;
   };
-  function getMonsterPrimaryType(monster) {
-    return (monster.types[1] || monster.types[0]).name;
-  };
   function renderStats(monster) {
-    var monsterType = (monster.types[1] || monster.types[0]).name;
-    var barColor = typesToColors[monsterType];
+    var monsterType = (monster.types[1] || monster.types[0]).type.name;
+    $scope.barColor = typesToColors[monsterType];
+    document.getElementById('modal-background').style.background = 'rgba(' + $scope.barColor + ')';
     $scope.monsterStats = monster.stats;
     var stats = {
       'hp': 'HP',
@@ -89,7 +103,7 @@ angular.module('tracker').controller('trackerCtrl', function($scope, dataService
     }
     $scope.statBackground = function(stat) {
       return {
-        background: barColor,
+        background: $scope.barColor,
         transform: "scaleX(" + getStatDisplayRatio(stat.base_stat) + ")"
       }
     }

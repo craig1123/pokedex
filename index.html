@@ -459,6 +459,14 @@
       }
     }
     </style>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-68311616-5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-68311616-5');
+    </script>
 </head>
 
 <body ng-controller="mainCtrl">
@@ -477,7 +485,7 @@
         <section class="main-pokedex-container">
             <div class="search-container">
                 <form ng-submit="testData(num); pokeData(num); regionData(num); pokemonID(num); getMoreData(num); route()">
-                    <input class="searchField" ng-model="num" type="text" placeholder="Search pokemon" header-directive autofocus/>
+                    <input class="searchField" ng-model="num" type="text" placeholder="Search pokemon" autofocus/>
                 </form>
             </div>
 

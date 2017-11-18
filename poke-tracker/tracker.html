@@ -13,31 +13,34 @@
     <style>
     html,body,div,a,img,footer,header{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}footer,header{display:block}body{line-height:1}
     body, html {
-        font-family: "Exo 2", "Helvetica Neue", Helvetica, sans-serif;
-        font-weight: 300;
-        font-size: 1.2em;
-        line-height: 1.2em;
-        background: #EEEEEE;
-        color: #726F66;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
+      font-family: "Exo 2", "Helvetica Neue", Helvetica, sans-serif;
+      font-weight: 300;
+      font-size: 1.2em;
+      line-height: 1.2em;
+      background: #EEEEEE;
+      color: #726F66;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
     } ​
     body::-webkit-scrollbar, html::-webkit-scrollbar {
-        display: none;
+      display: none;
+    }
+    body.modal-active {
+      overflow: hidden;
     }
     h2 {
-        font-family: 'Roboto Slab', "Helvetica Neue", Helvetica, sans-serif;
-        font-weight: 700;
-        color: #726F66;
-        display: block;
-        font-size: 1.17em;
-        margin-top: 1em;
-        margin-bottom: 1em;
-        margin-left: 0;
-        margin-right: 0;
-        font-weight: bold;
+      font-family: 'Roboto Slab', "Helvetica Neue", Helvetica, sans-serif;
+      font-weight: 700;
+      color: #726F66;
+      display: block;
+      font-size: 1.17em;
+      margin-top: 1em;
+      margin-bottom: 1em;
+      margin-left: 0;
+      margin-right: 0;
+      font-weight: bold;
     }
     img {
       width: 100%;
@@ -68,10 +71,6 @@
       position: fixed;
       top: 0;
       z-index: 5;
-    }
-    .header-logo {
-      width: 70%;
-      text-align: center;
     }
     .poke-wrapper {
       width: 100%;
@@ -125,15 +124,93 @@
       font-size: 35px;
       color: #f00;
     }
-    .modal {
+    .arrow-back {
+      font-size: xx-large;
+      cursor: pointer;
       position: fixed;
-      top: 2.5%;
-      left: 2.5%;
-      width: 95%;
-      height: 95%;
-      border-radius: 50px;
-      transition: 1.5s;
-      z-index: 9999;
+    }
+    #poke-modal {
+      position:fixed;
+      height:100%;
+      width:100%;
+      top:0;
+      left:0;
+      transform:scale(0);
+      z-index:99;
+      overflow: auto;
+    }
+    #poke-modal.unfold-modal {
+      transform:scaleY(.01) scaleX(0);
+      animation:unfoldIn 1.3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    }
+    #poke-modal.unfold-modal  #modal-background .modal {
+      transform:scale(0);
+      animation: zoomIn 1s .8s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    }
+    #poke-modal.unfold-modal.out {
+      transform:scale(1);
+      animation:unfoldOut 1s .3s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    }
+    #poke-modal.unfold-modal.out  #modal-background .modal {
+      animation: zoomOut .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    }
+    #modal-background {
+      background:rgba(0,0,0,.8);
+    }
+    #modal-background .modal {
+      background:white;
+      padding:50px auto;
+      display:inline-block;
+      border-radius:3px;
+      font-weight:300;
+      position:relative;
+    }
+    .detail-stats {
+      min-width: 200px;
+      max-width: 300px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    .detail-stats-row {
+      display: flex;
+      margin-top: 2px;
+      margin-left: 2px;
+    }
+    .detail-stats-row span:nth-child(even) {
+      flex-basis: 0;
+      flex-grow: 2;
+      color: white;
+    }
+    .detail-stats-row span:nth-child(odd) {
+      flex-basis: 0;
+      flex-grow: 1;
+    }
+    .stat-bar {
+      position: relative;
+      background: #ededed;
+    }
+    .stat-bar-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      transform-origin: left;
+    }
+    .stat-bar-fg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 99;
+      margin-left: 2px;
+    }
+    .detail-types-and-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     @media screen and (max-width: 768px) {
       .pokeCard {
@@ -143,16 +220,40 @@
         height: 125px;
         width: 125px;
       }
+      .detail-stats-row span:nth-child(even) {
+        flex-grow: 1;
+      }
+    }
+    @media(max-width: 481px) {
+      .detail-stats {
+        font-size: 12px;
+      }
+    }
+    @keyframes unfoldIn {
+      0% { transform:scaleY(.005) scaleX(0); }
+      50% { transform:scaleY(.005) scaleX(1); }
+      100% { transform:scaleY(1) scaleX(1);}
+    }
+    @keyframes unfoldOut {
+      0% { transform:scaleY(1) scaleX(1); }
+      50% { transform:scaleY(.005) scaleX(1); }
+      100% { transform:scaleY(.005) scaleX(0); }
+    }
+    @keyframes zoomIn {
+      0% { transform:scale(0); }
+      100% { transform:scale(1); }
+    }
+    @keyframes zoomOut {
+      0% { transform:scale(1); }
+      100% { transform:scale(0); }
     }
     </style>
 </head>
 
-<body ng-controller='trackerCtrl'>
+  <body ng-controller='trackerCtrl'>
     <header class="header-content">
       <div>
-        <a class='header-logo' href="./../index.html">
-          <img src="./../img/Pokedex.png" alt="Pokemon">
-        </a>
+        <a href="./../index.html"><img src="./../img/Pokedex.png" alt="Pokemon"></a>
       </div>
       <div class="input">
         <input type="text" placeholder="Search Pokemon" ng-model="filterText">
@@ -160,43 +261,70 @@
     </header>
 
     <div ng-if="delay" style="text-align: center;">
-        <br />
-        <h2>All Pokemon and their stats are below</h2>
-        <img style="width: inherit;" alt="loading" src="../img/loading-char.gif" />
-        <h2>Loading Pokemon...</h2>
-    </div>
-
-    <div class="poke-modal">
-      <section class="poke-section">
-        <div class="">
-          {{selectedPokemon.id}}
-          {{selectedPokemon.name}}
-          <img ng-src="{{selectedPokemon.img}}" alt="{{selectedPokemon.name}}" />
-        </div>
-        <div class="poke-stats" ng-repeat='monsterStat in monsterStats'>
-          <div class="detail-stats-row">
-            <span>{{getStatName(monsterStat)}}</span>
-            <span class="stat-bar">
-              <div class="stat-bar-bg" ng-style="statBackground(monsterStat)"></div>
-              <div class="stat-bar-fg" ng-style="statFont(monsterStat)"></div>
-              {{monsterStat.base_stat}}
-            </span>
-          </div>
-        </div>
-      </section>
-      <section class="poke-section">
-
-      </section>
+      <br />
+      <h2>All Pokemon and their stats are below</h2>
+      <img style="width: inherit;" alt="loading" src="../img/loading-char.gif" />
+      <h2>Loading Pokemon...</h2>
     </div>
 
     <div id="poke-wrapper" class="poke-wrapper" ng-if="!delay" when-scrolled="loadImages()">
-        <div class="pokeCard" ng-click="flipIt(pokemon)" ng-repeat='pokemon in pokemons | filter: {id: filterText, name: filterText}'>
-            <h2 class="pokemonName">#{{pokemon.id}} {{pokemon.name}}</h3>
-            <div class="pokemon-image-container">
-                <img ng-src="{{pokemon.img}}" alt="{{pokemon.name}}" />
-            </div>
+      <div class="pokeCard" ng-click="flipIt(pokemon)" ng-repeat='pokemon in pokemons | filter: {id: filterText, name: filterText}'>
+        <h2 class="pokemonName">#{{pokemon.id}} {{pokemon.name}}</h3>
+        <div class="pokemon-image-container">
+          <img ng-src="{{pokemon.img}}" alt="{{pokemon.name}}" />
         </div>
-        <button id="arrow-top" ng-click="scrollTop()">&#8679;</button>
+      </div>
+      <button id="arrow-top" ng-click="scrollTop()">&#8679;</button>
+    </div>
+
+    <div ng-show="pokeModal" id="poke-modal">
+      <div id="modal-background">
+        <div class="modal">
+          <span class="arrow-back" ng-click="removeModal()">&#8678;</span>
+          <section class="poke-section">
+            <h2>{{selectedPokemon.name}}</h2>
+            <div class="">
+              {{selectedPokemon.id}}
+              <img style="height: 150px; width: 150px;" ng-src="{{selectedPokemon.img}}" alt="{{selectedPokemon.name}}" />
+            </div>
+            <div class="poke-stats" ng-repeat='monsterStat in monsterStats'>
+              <div class="detail-stats-row">
+                <span>{{getStatName(monsterStat)}}</span>
+                <span class="stat-bar">
+                  <div class="stat-bar-bg" ng-style="statBackground(monsterStat)"></div>
+                  <div class="stat-bar-fg" ng-style="statFont(monsterStat)">{{monsterStat.base_stat}}</div>
+                </span>
+              </div>
+            </div>
+          </section>
+          <section class="poke-section">
+            <h2>Evolution</h2>
+            <ul class="evo-list">
+              <li ng-click="flipIt(stages)" ng-repeat="stages in evolution track by $index" class="evo-element">
+                {{ stages }}
+              </li>
+            </ul>
+          </section>
+          <section class="poke-section">
+            <h2>Region</h2>
+            <div ng-repeat="region in regions">
+              <div class="region-carousel" carousel-dir>
+                <div class="carousel-containers">
+                  <img class="carousel-img" ng-src="{{region.img}}" alt="{{region.name}}" />
+                  <div class="carousel-text">Kanto</div>
+                </div>
+              </div>
+              {{region.name}}
+            </div>
+          </section>
+          <section class="poke-section">
+            <h2>Moves</h2>
+            <div ng-repeat="region in regions">
+              {{region}}
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
@@ -204,6 +332,6 @@
     <script type="text/javascript" src="./js/trackerCtrl.js"></script>
     <script type="text/javascript" src="./js/dataService.js"></script>
     <script type="text/javascript" src="./js/whenScrolled.js"></script>
-</body>
-
+    <script type="text/javascript" src="./js/regionService.js"></script>
+  </body>
 </html>
