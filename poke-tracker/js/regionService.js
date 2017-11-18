@@ -1,7 +1,7 @@
 angular.module('tracker').service('regionService', function() {
   var regionImgs = {
     Hoenn: "https://cdn.bulbagarden.net/upload/9/9c/HoennIIIE.png",
-    Johto: "https://cdn.bulbagarden.net/upload/thumb/4/46/HGSS_Johto.jpg/800px-HGSS_Johto.jpg",
+    Johto: "https://cdn.bulbagarden.net/upload/6/64/JohtoMap.png",
     Kanto: "https://cdn.bulbagarden.net/upload/thumb/4/43/HGSS_Kanto.png/787px-HGSS_Kanto.png",
     Sinnoh: "https://cdn.bulbagarden.net/upload/thumb/7/7d/Sinnoh_Anime.png/800px-Sinnoh_Anime.png",
     Unova: "https://cdn.bulbagarden.net/upload/thumb/4/42/Unova_alt.png/800px-Unova_alt.png",
@@ -28,9 +28,9 @@ angular.module('tracker').service('regionService', function() {
 
   this.getRegions = function(pokemon) {
     var areas = [];
-    function regionLooperName(pokemon, arr) {
+    function regionLooperName(name, arr) {
         for (var i = 0; i < arr.length - 1; i++) {
-            if (pokemon === arr[i].name) {
+            if (name === arr[i]) {
                 var region = arr[arr.length - 1].region
                 areas.push({
                   name: region,

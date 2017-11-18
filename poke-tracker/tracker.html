@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html ng-app="tracker">
-
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="theme-color" content="#fff">
     <meta name="author" content="Craig S. Walker">
@@ -29,6 +28,9 @@
     }
     body.modal-active {
       overflow: hidden;
+    }
+    ul {
+      list-style: none;
     }
     h2 {
       font-family: 'Roboto Slab', "Helvetica Neue", Helvetica, sans-serif;
@@ -97,10 +99,10 @@
       cursor: pointer;
     }
     .pokemonName {
-        font-family: 'pixel', cursive;
-        color: black;
-        text-shadow: 0 0 6px rgba(0,0,0,0.29);
-        font-size: 20px;
+      font-family: 'pixel', cursive;
+      text-shadow: 0 0 6px rgba(0,0,0,0.29);
+      color: black;
+      font-size: 20px;
     }
     .pokemon-image-container {
         height: 150px;
@@ -125,9 +127,12 @@
       color: #f00;
     }
     .arrow-back {
-      font-size: xx-large;
+      font-size: 50px;
       cursor: pointer;
       position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 9999;
     }
     #poke-modal {
       position:fixed;
@@ -155,15 +160,27 @@
       animation: zoomOut .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
     }
     #modal-background {
-      background:rgba(0,0,0,.8);
+      background: rgba(0,0,0,.8);
+      display: flex;
+      justify-content: center;
     }
     #modal-background .modal {
-      background:white;
-      padding:50px auto;
+      background:#fff;
+      padding:50px;
       display:inline-block;
       border-radius:3px;
       font-weight:300;
       position:relative;
+      max-width: 65%;
+    }
+    .section-header {
+      min-width: 275px;
+      margin: 0 auto;
+      color: #fff;
+      background: rgba(0,0,0,.8);
+      text-align: center;
+      padding: 15px;
+      font-size: 24px;
     }
     .detail-stats {
       min-width: 200px;
@@ -189,22 +206,19 @@
       position: relative;
       background: #ededed;
     }
-    .stat-bar-bg {
+    .stat-bar-bg, .stat-bar-fg {
       position: absolute;
       top: 0;
+      bottom: 0;
       left: 0;
       right: 0;
-      bottom: 0;
-      z-index: 1;
+    }
+    .stat-bar-bg {
+      z-index: 100000;
       transform-origin: left;
     }
     .stat-bar-fg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 99;
+      z-index: 200000;
       margin-left: 2px;
     }
     .detail-types-and-num {
@@ -249,7 +263,6 @@
     }
     </style>
 </head>
-
   <body ng-controller='trackerCtrl'>
     <header class="header-content">
       <div>
@@ -282,23 +295,26 @@
         <div class="modal">
           <span class="arrow-back" ng-click="removeModal()">&#8678;</span>
           <section class="poke-section">
-            <h2>{{selectedPokemon.name}}</h2>
-            <div class="">
-              {{selectedPokemon.id}}
+            <h1 class="section-header">{{selectedPokemon.name}}</h1>
+            <div style="display: flex;">
               <img style="height: 150px; width: 150px;" ng-src="{{selectedPokemon.img}}" alt="{{selectedPokemon.name}}" />
-            </div>
-            <div class="poke-stats" ng-repeat='monsterStat in monsterStats'>
-              <div class="detail-stats-row">
-                <span>{{getStatName(monsterStat)}}</span>
-                <span class="stat-bar">
-                  <div class="stat-bar-bg" ng-style="statBackground(monsterStat)"></div>
-                  <div class="stat-bar-fg" ng-style="statFont(monsterStat)">{{monsterStat.base_stat}}</div>
-                </span>
+              <div>#{{selectedPokemon.id}}</div>
+              <div class="detail-stats">
+                <div></div>
+                <div class="detail-stats-row" ng-repeat='monsterStat in monsterStats'>
+                  <span>{{getStatName(monsterStat)}}</span>
+                  <span class="stat-bar">
+                    <div class="stat-bar-bg" ng-style="statBackground(monsterStat)"></div>
+                    <div class="stat-bar-fg" ng-style="statFont(monsterStat)">{{monsterStat.base_stat}}</div>
+                  </span>
+                </div>
               </div>
             </div>
+            <h3>{{selectedSpecies.genera.genus}}</h3>
+            <p>{{selectedSpecies.description}}</p>
           </section>
           <section class="poke-section">
-            <h2>Evolution</h2>
+            <h2 class="section-header">Evolution</h2>
             <ul class="evo-list">
               <li ng-click="flipIt(stages)" ng-repeat="stages in evolution track by $index" class="evo-element">
                 {{ stages }}
@@ -306,21 +322,19 @@
             </ul>
           </section>
           <section class="poke-section">
-            <h2>Region</h2>
+            <h2 class="section-header">Region</h2>
             <div ng-repeat="region in regions">
               <div class="region-carousel" carousel-dir>
                 <div class="carousel-containers">
-                  <img class="carousel-img" ng-src="{{region.img}}" alt="{{region.name}}" />
-                  <div class="carousel-text">Kanto</div>
+                  <img ng-src="{{region.img}}" alt="{{region.name}}" />
+                  <div class="carousel-text">{{region.name}}</div>
                 </div>
               </div>
-              {{region.name}}
             </div>
           </section>
           <section class="poke-section">
-            <h2>Moves</h2>
-            <div ng-repeat="region in regions">
-              {{region}}
+            <h2 class="section-header">Moves</h2>
+            <div>
             </div>
           </section>
         </div>

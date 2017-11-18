@@ -33,13 +33,20 @@ angular.module('tracker').service('dataService', function($http) {
         console.log('species', response.data);
         var data = response.data;
         var egg_groups = [];
+        var description;
         for (var i = 0; i < data.egg_groups.length; i++) {
           egg_groups.push(data.egg_groups[i].name);
+        }
+        if (data.flavor_text_entries[1].language.name === 'en') {
+          description = data.flavor_text_entries[1].flavor_text;
+        } else if (data.flavor_text_entries[2].language.name === 'en') {
+          description = data.flavor_text_entries[2].flavor_text;
         }
         var monster = {
           base_happiness: data.base_happiness,
           capture_rate: data.capture_rate,
           color: data.color.name,
+          description: description,
           egg_groups: egg_groups,
           evolution_chain: data.evolution_chain.url,
           habitat: data.habitat.name,
@@ -59,7 +66,7 @@ angular.module('tracker').service('dataService', function($http) {
         method: 'GET',
         url: 'https://pokeapi.co/api/v2/pokemon/' + url + '/'
       }).then(function (response) {
-        console.log('pokemon', response);
+        console.log('pokemon', response.data);
         var data = response.data;
         var monster = {
           name: pokemon.name,
@@ -77,19 +84,20 @@ angular.module('tracker').service('dataService', function($http) {
     };
 
     this.getEvolution = function(url) {
-      return $http({ method: 'GET', url: url }).then(function(result) {
+      return $http({ method: 'GET', url: url }).then(function(response) {
         var evoChain = [];
-        evoChain.push(result.data.chain.species.name);
-        if (result.data.chain.evolves_to.length !== 0) {
+        console.log('evol', response.data);
+        evoChain.push(response.data.chain.species.name);
+        if (response.data.chain.evolves_to.length !== 0) {
           evoChain.push('⇒');
-          evoChain.push(result.data.chain.evolves_to[0].species.name);
+          evoChain.push(response.data.chain.evolves_to[0].species.name);
         }
         else {
           return evoChain;
         }
-        if (result.data.chain.evolves_to[0].evolves_to.length !== 0) {
+        if (response.data.chain.evolves_to[0].evolves_to.length !== 0) {
           evoChain.push('⇒');
-          evoChain.push(result.data.chain.evolves_to[0].evolves_to[0].species.name);
+          evoChain.push(response.data.chain.evolves_to[0].evolves_to[0].species.name);
         }
         else {
           return evoChain;
