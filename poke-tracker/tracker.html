@@ -74,6 +74,9 @@
       top: 0;
       z-index: 5;
     }
+    .pokedex-image {
+      width: 75%;
+    }
     .poke-wrapper {
       width: 100%;
       height: 97%;
@@ -86,6 +89,7 @@
     }
     .pokeCard {
       width: 200px;
+      max-height: 250px;
       transition: all 2s ease, box-shadow 0.2s ease-in-out;
       box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
       margin: 10px;
@@ -171,22 +175,26 @@
       border-radius:3px;
       font-weight:300;
       position:relative;
-      max-width: 65%;
+      max-width: 75%;
+      box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.4);
     }
     .section-header {
-      min-width: 275px;
-      margin: 0 auto;
+      margin: 12px auto;
       color: #fff;
       background: rgba(0,0,0,.8);
       text-align: center;
       padding: 15px;
       font-size: 24px;
+      box-shadow: 2px 3px 2px 0px rgba(0,0,0,.4);
+    }
+    .stats-top {
+      display: flex;
     }
     .detail-stats {
       min-width: 200px;
-      max-width: 300px;
       margin-top: 10px;
       font-size: 14px;
+      width: 100%;
     }
     .detail-stats-row {
       display: flex;
@@ -195,12 +203,14 @@
     }
     .detail-stats-row span:nth-child(even) {
       flex-basis: 0;
-      flex-grow: 2;
+      flex-grow: 3;
       color: white;
     }
     .detail-stats-row span:nth-child(odd) {
       flex-basis: 0;
       flex-grow: 1;
+      text-align: right;
+      padding-right: 12px;
     }
     .stat-bar {
       position: relative;
@@ -229,18 +239,36 @@
     @media screen and (max-width: 768px) {
       .pokeCard {
         width: 140px;
+        margin: 5px;
+        padding: 5px;
       }
       .pokemon-image-container {
         height: 125px;
         width: 125px;
       }
-      .detail-stats-row span:nth-child(even) {
-        flex-grow: 1;
+      .stats-top {
+        flex-wrap: wrap;
       }
     }
     @media(max-width: 481px) {
+      .pokedex-image {
+        width: 100%;
+      }
+      .input {
+        width: 160px;
+        font-size: 16px;
+      }
+      .poke-wrapper {
+        margin-top: 125px;
+      }
       .detail-stats {
         font-size: 12px;
+      }
+      #modal-background .modal {
+        padding: 25px;
+      }
+      .arrow-back {
+        left: 0px;
       }
     }
     @keyframes unfoldIn {
@@ -261,12 +289,12 @@
       0% { transform:scale(1); }
       100% { transform:scale(0); }
     }
-    </style>
+  </style>
 </head>
   <body ng-controller='trackerCtrl'>
     <header class="header-content">
       <div>
-        <a href="./../index.html"><img src="./../img/Pokedex.png" alt="Pokemon"></a>
+        <a href="./../index.html"><img class="pokedex-image" src="./../img/Pokedex.png" alt="Pokemon"></a>
       </div>
       <div class="input">
         <input type="text" placeholder="Search Pokemon" ng-model="filterText">
@@ -280,7 +308,7 @@
       <h2>Loading Pokemon...</h2>
     </div>
 
-    <div id="poke-wrapper" class="poke-wrapper" ng-if="!delay" when-scrolled="loadImages()">
+    <div id="poke-wrapper" class="poke-wrapper" ng-if="!delay">
       <div class="pokeCard" ng-click="flipIt(pokemon)" ng-repeat='pokemon in pokemons | filter: {id: filterText, name: filterText}'>
         <h2 class="pokemonName">#{{pokemon.id}} {{pokemon.name}}</h3>
         <div class="pokemon-image-container">
@@ -296,9 +324,9 @@
           <span class="arrow-back" ng-click="removeModal()">&#8678;</span>
           <section class="poke-section">
             <h1 class="section-header">{{selectedPokemon.name}}</h1>
-            <div style="display: flex;">
-              <img style="height: 150px; width: 150px;" ng-src="{{selectedPokemon.img}}" alt="{{selectedPokemon.name}}" />
+            <div class="stats-top">
               <div>#{{selectedPokemon.id}}</div>
+              <img style="height: 150px; width: 150px; margin: 12px;" ng-src="{{selectedPokemon.img}}" alt="{{selectedPokemon.name}} Pokemon" />
               <div class="detail-stats">
                 <div></div>
                 <div class="detail-stats-row" ng-repeat='monsterStat in monsterStats'>
@@ -315,9 +343,12 @@
           </section>
           <section class="poke-section">
             <h2 class="section-header">Evolution</h2>
-            <ul class="evo-list">
+            <ul style="text-align: center">
               <li ng-click="flipIt(stages)" ng-repeat="stages in evolution track by $index" class="evo-element">
-                {{ stages }}
+                {{stages.from}}
+                <svg class="evo-arrow" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path d="M24 16V8l16 16-16 16v-8H8V16z"></path></svg>
+                {{stages.to}}
+                <p>{{stages.from}} will evolve <strong>at level {{stages.lvl}}</strong></p>
               </li>
             </ul>
           </section>
@@ -326,8 +357,8 @@
             <div ng-repeat="region in regions">
               <div class="region-carousel" carousel-dir>
                 <div class="carousel-containers">
+                  <h4>{{region.name}}</h4>
                   <img ng-src="{{region.img}}" alt="{{region.name}}" />
-                  <div class="carousel-text">{{region.name}}</div>
                 </div>
               </div>
             </div>
@@ -345,7 +376,6 @@
     <script src="./js/trackerApp.js"></script>
     <script type="text/javascript" src="./js/trackerCtrl.js"></script>
     <script type="text/javascript" src="./js/dataService.js"></script>
-    <script type="text/javascript" src="./js/whenScrolled.js"></script>
     <script type="text/javascript" src="./js/regionService.js"></script>
   </body>
 </html>

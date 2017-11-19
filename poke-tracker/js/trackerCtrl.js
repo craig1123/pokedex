@@ -29,17 +29,11 @@ angular.module('tracker').controller('trackerCtrl', function($scope, dataService
   };
   $scope.delay = true;
   $scope.modal = false;
-  $scope.pokemons = [];
   $scope.counter = 24;
-  $scope.loadImages = function() {
-      $scope.pokemons = $scope.pokes.slice(0, $scope.counter)
-      $scope.counter += 24;
-  };
   $scope.getPokemon = function() {
-    dataService.getPokemon().then(function(pokemon) {
-      $scope.pokes = pokemon;
+    dataService.getPokemon().then(function(monsters) {
+      $scope.pokemons = monsters;
       $scope.delay = false;
-      $scope.loadImages();
     });
   };
 
@@ -59,7 +53,6 @@ angular.module('tracker').controller('trackerCtrl', function($scope, dataService
       document.getElementById('poke-wrapper').style.overflowY = 'hidden';
       modal.classList.remove('out');
       modal.classList.add('unfold-modal');
-
       dataService.getMoreDetails(pokemon).then(function(res) {
         $scope.selectedPokemon = res;
         renderStats(res);
@@ -67,6 +60,12 @@ angular.module('tracker').controller('trackerCtrl', function($scope, dataService
       dataService.getPokemonSpecies(pokemon).then(function(res) {
         dataService.getEvolution(res.evolution_chain).then(function(evoChain) {
           $scope.evolution = evoChain;
+          var darkerColor = shadeBlend(-0.25, $scope.barColor);
+          var arrows = document.getElementsByClassName('evo-arrow');
+          for (var i = 0; i < arrows.length; i++) {
+            arrows[i].style.fill = darkerColor;
+            arrows[i].style.stroke = darkerColor;
+          }
         });
         $scope.selectedSpecies = res;
       })

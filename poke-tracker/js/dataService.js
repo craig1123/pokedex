@@ -61,6 +61,7 @@ angular.module('tracker').service('dataService', function($http) {
     };
 
     this.getMoreDetails = function(pokemon) {
+      console.log(pokemon);
       var url = pokemon.name.toLowerCase()
       return $http({
         method: 'GET',
@@ -87,21 +88,25 @@ angular.module('tracker').service('dataService', function($http) {
       return $http({ method: 'GET', url: url }).then(function(response) {
         var evoChain = [];
         console.log('evol', response.data);
-        evoChain.push(response.data.chain.species.name);
-        if (response.data.chain.evolves_to.length !== 0) {
-          evoChain.push('⇒');
-          evoChain.push(response.data.chain.evolves_to[0].species.name);
+        var data = response.data.chain;
+        function evolve(evolution) {
+          evoChain.push({
+            from: evolution.species.name,
+            to: evolution.evolves_to[0].species.name,
+            lvl: evolution.evolves_to[0].evolution_details[0].min_level
+          });
+        };
+        if (data.evolves_to.length !== 0) {
+          evolve(data)
         }
-        else {
-          return evoChain;
+        if (data.evolves_to[0].evolves_to.length !== 0) {
+          evolve(data.evolves_to[0]);
         }
-        if (response.data.chain.evolves_to[0].evolves_to.length !== 0) {
-          evoChain.push('⇒');
-          evoChain.push(response.data.chain.evolves_to[0].evolves_to[0].species.name);
+        if (evoChain.length === 0) {
+          var pokeName = data.species.name + " has no evolutions"
+          evoChain.push(pokeName);
         }
-        else {
-          return evoChain;
-        }
+        console.log('evo', evoChain);
         return evoChain;
       });
     };
