@@ -34,6 +34,7 @@ angular.module('tracker').service('dataService', function($http) {
         var data = response.data;
         var egg_groups = [];
         var description;
+        var gender_rate;
         for (var i = 0; i < data.egg_groups.length; i++) {
           egg_groups.push(data.egg_groups[i].name);
         }
@@ -42,15 +43,21 @@ angular.module('tracker').service('dataService', function($http) {
         } else if (data.flavor_text_entries[2].language.name === 'en') {
           description = data.flavor_text_entries[2].flavor_text;
         }
+        if (data.gender_rate == -1) {
+          gender_rate = "N/A";
+        } else {
+          gender_rate = (((8 - data.gender_rate) / 8) * 100 ).toFixed(2) +
+            "% \u2642" + ((data.gender_rate / 8) * 100).toFixed(2) + "% \u2640";
+        }
         var monster = {
           base_happiness: data.base_happiness,
-          capture_rate: data.capture_rate,
+          capture_rate: ((data.capture_rate / 255) * 100).toFixed(2),
           color: data.color.name,
           description: description,
           egg_groups: egg_groups,
           evolution_chain: data.evolution_chain.url,
           habitat: data.habitat.name,
-          gender_rate: data.gender_rate,
+          gender_rate: gender_rate,
           genera: data.genera[2],
           growth_rate: data.growth_rate.name,
           has_gender_differences: data.has_gender_differences,
@@ -69,13 +76,26 @@ angular.module('tracker').service('dataService', function($http) {
       }).then(function (response) {
         console.log('pokemon', response.data);
         var data = response.data;
+        var naturalMoves = [];
+        var machineMoves = [];
+        for (var i = 0; i < data.moves.length; i++) {
+          if (data.moves[i].version_group_details[0].level_learned_at !== 0) {
+            naturalMoves.push({
+              name: data.moves[i].move.name,
+              lvl: data.moves[i].version_group_details[0].level_learned_at
+            })
+          } else {
+            machineMoves.push(data.moves[i].move.name)
+          }
+        }
         var monster = {
           name: pokemon.name,
           id: pokemon.id,
           img: pokemon.img,
           stats: data.stats,
           types: data.types,
-          moves: data.moves,
+          naturalMoves: naturalMoves,
+          machineMoves: machineMoves,
           abilities: data.abilities,
           height: data.height,
           weight: data.weight,
@@ -106,7 +126,6 @@ angular.module('tracker').service('dataService', function($http) {
           var pokeName = data.species.name + " has no evolutions"
           evoChain.push(pokeName);
         }
-        console.log('evo', evoChain);
         return evoChain;
       });
     };

@@ -27,6 +27,9 @@ angular.module('tracker').controller('trackerCtrl', function($scope, dataService
     "special-attack": 'Sp Atk',
     "special-defense": 'Sp Def',
   };
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   $scope.delay = true;
   $scope.modal = false;
   $scope.counter = 24;
@@ -46,6 +49,7 @@ angular.module('tracker').controller('trackerCtrl', function($scope, dataService
   }
 
   $scope.flipIt = function(pokemon) {
+    pokemon.name = capitalizeFirstLetter(pokemon.name)
     setTimeout(function () {
       $scope.pokeModal = true;
       var modal = document.getElementById('poke-modal');
@@ -112,6 +116,14 @@ angular.module('tracker').controller('trackerCtrl', function($scope, dataService
   };
   function renderStats(monster) {
     var monsterType = (monster.types[1] || monster.types[0]).type.name;
+    var types = [];
+    for (var i = 0; i < monster.types.length; i++) {
+      types.push({
+        name: monster.types[i].type.name,
+        color: typesToColors[monster.types[i].type.name]
+      })
+    }
+    $scope.types = types;
     $scope.barColor = typesToColors[monsterType];
     document.getElementById('modal-background').style.background = hexToRGB($scope.barColor);
     changeBackgroundClass($scope.barColor);

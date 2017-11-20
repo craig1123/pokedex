@@ -179,13 +179,15 @@
       box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.4);
     }
     .section-header {
-      margin: 12px auto;
       color: #fff;
       background: rgba(0,0,0,.8);
       text-align: center;
       padding: 15px;
       font-size: 24px;
       box-shadow: 2px 3px 2px 0px rgba(0,0,0,.4);
+      position: sticky;
+      z-index: 110;
+      top: 0;
     }
     .stats-top {
       display: flex;
@@ -195,6 +197,15 @@
       margin-top: 10px;
       font-size: 14px;
       width: 100%;
+    }
+    .detail-types {
+      color: #fff;
+      border-radius: 2px;
+      font-size: 16px;
+      font-variant: small-caps;
+      font-weight: 600;
+      margin-right: 5px;
+      padding: 1px 10px 5px;
     }
     .detail-stats-row {
       display: flex;
@@ -236,6 +247,35 @@
       align-items: center;
       justify-content: center;
     }
+    .monster-minutia {
+      display: flex;
+      margin: 0 20px 10px;
+    }
+    .monster-minutia > strong {
+      flex-basis: 20%;
+      flex-grow: 1;
+      flex-shrink: 1;
+      margin-right: 3px;
+      font-size: 14px;
+    }
+    .monster-minutia > span {
+      flex-basis: 30%;
+      flex-grow: 1;
+      flex-shrink: 1;
+      margin: 0 2px;
+    }
+    #natural-moves {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    #natural-moves td, #natural-moves th {
+      padding: 8px;
+    }
+    #natural-moves th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+    }
     @media screen and (max-width: 768px) {
       .pokeCard {
         width: 140px;
@@ -269,6 +309,12 @@
       }
       .arrow-back {
         left: 0px;
+      }
+      .monster-minutia > strong {
+        font-size: 12px;
+      }
+      .monster-minutia > span {
+        font-size: 12px;
       }
     }
     @keyframes unfoldIn {
@@ -328,7 +374,11 @@
               <div>#{{selectedPokemon.id}}</div>
               <img style="height: 150px; width: 150px; margin: 12px;" ng-src="{{selectedPokemon.img}}" alt="{{selectedPokemon.name}} Pokemon" />
               <div class="detail-stats">
-                <div></div>
+                <div style="display: flex; justify-content: center; margin-bottom: 12px;">
+                  <span ng-repeat="type in types" ng-style="{background: type.color}" class="detail-types">
+                    {{type.name}}
+                  </span>
+                </div>
                 <div class="detail-stats-row" ng-repeat='monsterStat in monsterStats'>
                   <span>{{getStatName(monsterStat)}}</span>
                   <span class="stat-bar">
@@ -342,15 +392,44 @@
             <p>{{selectedSpecies.description}}</p>
           </section>
           <section class="poke-section">
+            <h2 class="section-header">Profile</h2>
+            <div class="monster-minutia">
+              <strong>Height </strong>
+              <span>{{selectedPokemon.height}}</span>
+              <strong>Weight </strong>
+              <span>{{selectedPokemon.weight}}</span>
+            </div>
+            <div class="monster-minutia">
+              <strong>Catch Rate </strong>
+              <span>{{selectedSpecies.capture_rate}}%</span>
+              <strong>Gender Rate </strong>
+              <span>{{selectedSpecies.gender_rate}}</span>
+            </div>
+            <div class="monster-minutia">
+              <strong>Habitat </strong>
+              <span>{{selectedSpecies.habitat}}</span>
+              <strong>Abilities </strong>
+              <span>
+                <span ng-repeat="ability in selectedPokemon.abilities">
+                  {{ability.ability.name}}{{$last ? '' : ', '}}
+                </span>
+              </span>
+            </div>
+          </section>
+          <section class="poke-section">
             <h2 class="section-header">Evolution</h2>
-            <ul style="text-align: center">
-              <li ng-click="flipIt(stages)" ng-repeat="stages in evolution track by $index" class="evo-element">
-                {{stages.from}}
+            <div style="text-align: center">
+              <span ng-repeat="stages in evolution track by $index" class="evo-element">
+                <span ng-click="flipIt({name: stages.from, id: selectedPokemon.id, img: selectedPokemon.img})" style="cursor: pointer;">
+                  {{stages.from}}
+                </span>
                 <svg class="evo-arrow" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path d="M24 16V8l16 16-16 16v-8H8V16z"></path></svg>
-                {{stages.to}}
+                <span ng-click="flipIt({name: stages.to, id: selectedPokemon.id, img: selectedPokemon.img})" style="cursor: pointer;">
+                  {{stages.to}}
+                </span>
                 <p>{{stages.from}} will evolve <strong>at level {{stages.lvl}}</strong></p>
-              </li>
-            </ul>
+              </span>
+            </div>
           </section>
           <section class="poke-section">
             <h2 class="section-header">Region</h2>
@@ -365,8 +444,23 @@
           </section>
           <section class="poke-section">
             <h2 class="section-header">Moves</h2>
-            <div>
-            </div>
+            <h3>Natural Moves</h3>
+            <table id="natural-moves">
+              <tr>
+                <th>Name</th>
+                <th>Level</th>
+              </tr>
+              <tr ng-repeat="move in selectedPokemon.naturalMoves | orderBy : 'lvl'" class="natural-moves">
+                <td>{{move.name}}</td>
+                <td>{{move.lvl}}</td>
+              </tr>
+            </table>
+            <h3>Machine Taught Moves</h3>
+            <ul style="display: flex; flex-wrap: wrap;">
+              <li ng-repeat="move in selectedPokemon.machineMoves" style="width: 33%;">
+                {{move}}
+              </li>
+            </ul>
           </section>
         </div>
       </div>
