@@ -30,7 +30,6 @@ angular.module('tracker').service('dataService', function($http) {
         method: 'GET',
         url: 'https://pokeapi.co/api/v2/pokemon-species/' + url + '/'
       }).then(function (response) {
-        console.log('species', response.data);
         var data = response.data;
         var egg_groups = [];
         var description;
@@ -56,7 +55,7 @@ angular.module('tracker').service('dataService', function($http) {
           description: description,
           egg_groups: egg_groups,
           evolution_chain: data.evolution_chain.url,
-          habitat: data.habitat.name,
+          habitat: data.habitat ? data.habitat.name : 'N/A',
           gender_rate: gender_rate,
           genera: data.genera[2],
           growth_rate: data.growth_rate.name,
@@ -68,14 +67,13 @@ angular.module('tracker').service('dataService', function($http) {
     };
 
     this.getMoreDetails = function(pokemon) {
-      console.log(pokemon);
       var url = pokemon.name.toLowerCase()
       return $http({
         method: 'GET',
         url: 'https://pokeapi.co/api/v2/pokemon/' + url + '/'
       }).then(function (response) {
-        console.log('pokemon', response.data);
         var data = response.data;
+        var img;
         var naturalMoves = [];
         var machineMoves = [];
         for (var i = 0; i < data.moves.length; i++) {
@@ -88,10 +86,15 @@ angular.module('tracker').service('dataService', function($http) {
             machineMoves.push(data.moves[i].move.name)
           }
         }
+        if (data.id > 721) {
+          img = 'https://img.pokemondb.net/artwork/' + pokemon.name + '.jpg';
+        } else {
+          img = 'https://www.serebii.net/art/th/' + data.id + '.png';
+        }
         var monster = {
           name: pokemon.name,
-          id: pokemon.id,
-          img: pokemon.img,
+          id: data.id,
+          img: img,
           stats: data.stats,
           types: data.types,
           naturalMoves: naturalMoves,
@@ -107,24 +110,47 @@ angular.module('tracker').service('dataService', function($http) {
     this.getEvolution = function(url) {
       return $http({ method: 'GET', url: url }).then(function(response) {
         var evoChain = [];
-        console.log('evol', response.data);
         var data = response.data.chain;
-        function evolve(evolution) {
+        function evolve(evolution, i) {
+          var triggerName =  evolution.evolves_to[i].evolution_details[0].trigger.name;
+          var how;
+          if (triggerName === 'level-up') {
+            if (evolution.evolves_to[i].evolution_details[0].min_level) {
+              how = 'at level ' + evolution.evolves_to[i].evolution_details[0].min_level
+            } else if (evolution.evolves_to[i].evolution_details[0].min_happiness) {
+              how = 'with a minimum happiness of ' + evolution.evolves_to[i].evolution_details[0].min_happiness
+            } else if (evolution.evolves_to[i].evolution_details[0].location) {
+              how = 'at ' + evolution.evolves_to[i].evolution_details[0].location.name
+            } else if (evolution.evolves_to[i].evolution_details[0].known_move_type) {
+              how = 'with a known move type of ' + evolution.evolves_to[i].evolution_details[0].known_move_type.name
+            } else {
+              how = 'through unknown means'
+            }
+          } else if (triggerName === 'use-item') {
+            how = 'with a ' + evolution.evolves_to[i].evolution_details[0].item.name
+          } else if (triggerName === 'trade') {
+            how = 'by trade'
+          } else {
+            how = 'through unknown means'
+          }
           evoChain.push({
             from: evolution.species.name,
-            to: evolution.evolves_to[0].species.name,
-            lvl: evolution.evolves_to[0].evolution_details[0].min_level
+            to: evolution.evolves_to[i].species.name,
+            how: how,
           });
         };
         if (data.evolves_to.length !== 0) {
-          evolve(data)
-        }
-        if (data.evolves_to[0].evolves_to.length !== 0) {
-          evolve(data.evolves_to[0]);
+          for (var i = 0; i < data.evolves_to.length; i++) {
+            evolve(data, i)
+            if (data.evolves_to[i].evolves_to.length !== 0) {
+              for (var j = 0; j < data.evolves_to[i].evolves_to.length; j++) {
+                evolve(data.evolves_to[i], j);
+              }
+            }
+          }
         }
         if (evoChain.length === 0) {
-          var pokeName = data.species.name + " has no evolutions"
-          evoChain.push(pokeName);
+          evoChain.push({from: data.species.name, to: 'has no evolutions', how: 'never'});
         }
         return evoChain;
       });

@@ -31,6 +31,7 @@
     }
     ul {
       list-style: none;
+      padding: 0;
     }
     h2 {
       font-family: 'Roboto Slab', "Helvetica Neue", Helvetica, sans-serif;
@@ -63,7 +64,7 @@
       align-items: center;
     }
     .header-content {
-      height: 14%;
+      height: 100px;
       width: 100%;
       background-color: #fb0505;
       box-shadow: 0 5px 10px grey;
@@ -78,13 +79,11 @@
       width: 75%;
     }
     .poke-wrapper {
-      width: 100%;
-      height: 97%;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: center;
-      margin-top: 15%;
+      margin-top: 120px;
       overflow: auto;
     }
     .pokeCard {
@@ -235,11 +234,11 @@
       right: 0;
     }
     .stat-bar-bg {
-      z-index: 100000;
+      z-index: 10;
       transform-origin: left;
     }
     .stat-bar-fg {
-      z-index: 200000;
+      z-index: 20;
       margin-left: 2px;
     }
     .detail-types-and-num {
@@ -294,10 +293,6 @@
       .pokedex-image {
         width: 100%;
       }
-      .input {
-        width: 160px;
-        font-size: 16px;
-      }
       .poke-wrapper {
         margin-top: 125px;
       }
@@ -306,6 +301,7 @@
       }
       #modal-background .modal {
         padding: 25px;
+        font-size: 16px;
       }
       .arrow-back {
         left: 0px;
@@ -349,7 +345,8 @@
 
     <div ng-if="delay" style="text-align: center;">
       <br />
-      <h2>All Pokemon and their stats are below</h2>
+      <br />
+      <br />
       <img style="width: inherit;" alt="loading" src="../img/loading-char.gif" />
       <h2>Loading Pokemon...</h2>
     </div>
@@ -361,7 +358,7 @@
           <img ng-src="{{pokemon.img}}" alt="{{pokemon.name}}" />
         </div>
       </div>
-      <button id="arrow-top" ng-click="scrollTop()">&#8679;</button>
+      <a id="arrow-top" ng-click="scrollTop()">&#8679;</a>
     </div>
 
     <div ng-show="pokeModal" id="poke-modal">
@@ -420,14 +417,14 @@
             <h2 class="section-header">Evolution</h2>
             <div style="text-align: center">
               <span ng-repeat="stages in evolution track by $index" class="evo-element">
-                <span ng-click="flipIt({name: stages.from, id: selectedPokemon.id, img: selectedPokemon.img})" style="cursor: pointer;">
+                <span ng-click="flipIt({name: stages.from})" style="cursor: pointer;">
                   {{stages.from}}
                 </span>
                 <svg class="evo-arrow" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path d="M24 16V8l16 16-16 16v-8H8V16z"></path></svg>
-                <span ng-click="flipIt({name: stages.to, id: selectedPokemon.id, img: selectedPokemon.img})" style="cursor: pointer;">
+                <span ng-click="flipIt({name: stages.to})" style="cursor: pointer;">
                   {{stages.to}}
                 </span>
-                <p>{{stages.from}} will evolve <strong>at level {{stages.lvl}}</strong></p>
+                <p>{{stages.from}} will evolve <strong>{{stages.how}}</strong></p>
               </span>
             </div>
           </section>
