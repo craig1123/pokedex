@@ -45,8 +45,8 @@ angular.module('tracker').service('dataService', function($http) {
         if (data.gender_rate == -1) {
           gender_rate = "N/A";
         } else {
-          gender_rate = (((8 - data.gender_rate) / 8) * 100 ).toFixed(2) +
-            "% \u2642" + ((data.gender_rate / 8) * 100).toFixed(2) + "% \u2640";
+          gender_rate = '\u2642' + (((8 - data.gender_rate) / 8) * 100 ).toFixed(2) +
+            "% " + '\u2640' + ((data.gender_rate / 8) * 100).toFixed(2) + "% ";
         }
         var monster = {
           base_happiness: data.base_happiness,

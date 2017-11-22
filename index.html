@@ -336,14 +336,13 @@
       height: 120px;
       width: 100%;
       background-color: #fb0505;
-      position: absolute;
-      bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 25px;
     }
     .made-by {
       color: yellow;
-      position: absolute;
-      left: 12px;
-      bottom: 12px;
     }
     .made-by:hover {
       opacity: .8;
@@ -355,9 +354,6 @@
       width: 35px;
       background-image: url('https://upload.wikimedia.org/wikipedia/en/3/39/Pokeball.PNG');
       background-size: cover;
-      position: absolute;
-      right: 12px;
-      bottom: 12px;
     }
     .random-CTA:hover {
       cursor: pointer;
@@ -449,6 +445,9 @@
       .search-container {
         margin-top: 25px;
       }
+      .nav-links {
+        font-size: 13px;
+      }
     }
     @media screen and (max-width: 321px) {
       .pokedex-wrapper {
@@ -520,7 +519,7 @@
     </footer>
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
     <script async src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
     <script src="https://code.responsivevoice.org/responsivevoice.js"></script>

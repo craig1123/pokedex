@@ -64,12 +64,9 @@ angular.module('tracker').controller('trackerCtrl', function($scope, dataService
       dataService.getPokemonSpecies(pokemon).then(function(res) {
         dataService.getEvolution(res.evolution_chain).then(function(evoChain) {
           $scope.evolution = evoChain;
-          var darkerColor = shadeBlend(-0.25, $scope.barColor);
-          var arrows = document.getElementsByClassName('evo-arrow');
-          for (var i = 0; i < arrows.length; i++) {
-            arrows[i].style.fill = darkerColor;
-            arrows[i].style.stroke = darkerColor;
-          }
+          var normalColor = $scope.barColor;
+          var darkerColor = shadeBlend(-0.25, normalColor);
+          $scope.evoArrows = {fill: darkerColor, stroke: darkerColor};
         });
         $scope.selectedSpecies = res;
       })
@@ -126,7 +123,7 @@ angular.module('tracker').controller('trackerCtrl', function($scope, dataService
     $scope.types = types;
     $scope.barColor = typesToColors[monsterType];
     document.getElementById('modal-background').style.background = hexToRGB($scope.barColor);
-    changeBackgroundClass($scope.barColor);
+    changeBackgroundClass(typesToColors[monsterType]);
     $scope.monsterStats = monster.stats;
     $scope.getStatName = function(monsterStat) {
       return stats[monsterStat.stat.name];

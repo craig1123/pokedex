@@ -10,7 +10,7 @@
     <title>Pokedex | A pokemon database</title>
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/en/3/39/Pokeball.PNG">
     <style>
-    html,body,div,a,img,footer,header{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}footer,header{display:block}body{line-height:1}
+    html,body,div,a,img,header{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}header{display:block}body{line-height:1}
     body, html {
       font-family: "Exo 2", "Helvetica Neue", Helvetica, sans-serif;
       font-weight: 300;
@@ -22,12 +22,6 @@
       height: 100%;
       margin: 0;
       padding: 0;
-    } ​
-    body::-webkit-scrollbar, html::-webkit-scrollbar {
-      display: none;
-    }
-    body.modal-active {
-      overflow: hidden;
     }
     ul {
       list-style: none;
@@ -290,6 +284,9 @@
       }
     }
     @media(max-width: 481px) {
+      input {
+        width: 175px;
+      }
       .pokedex-image {
         width: 100%;
       }
@@ -362,7 +359,7 @@
     </div>
 
     <div ng-show="pokeModal" id="poke-modal">
-      <div id="modal-background">
+      <div id="modal-background" ng-click="removeModal()">
         <div class="modal">
           <span class="arrow-back" ng-click="removeModal()">&#8678;</span>
           <section class="poke-section">
@@ -417,11 +414,11 @@
             <h2 class="section-header">Evolution</h2>
             <div style="text-align: center">
               <span ng-repeat="stages in evolution track by $index" class="evo-element">
-                <span ng-click="flipIt({name: stages.from})" style="cursor: pointer;">
+                <span ng-click="$event.stopPropagation(); flipIt({name: stages.from})" style="cursor: pointer;">
                   {{stages.from}}
                 </span>
-                <svg class="evo-arrow" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path d="M24 16V8l16 16-16 16v-8H8V16z"></path></svg>
-                <span ng-click="flipIt({name: stages.to})" style="cursor: pointer;">
+                <svg ng-style="evoArrows" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path d="M24 16V8l16 16-16 16v-8H8V16z"></path></svg>
+                <span ng-click="$event.stopPropagation(); flipIt({name: stages.to})" style="cursor: pointer;">
                   {{stages.to}}
                 </span>
                 <p>{{stages.from}} will evolve <strong>{{stages.how}}</strong></p>
