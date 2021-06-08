@@ -1,13 +1,14 @@
 angular.module('tracker').service('regionService', function() {
   var regionImgs = {
-    Hoenn: "https://cdn.bulbagarden.net/upload/9/9c/HoennIIIE.png",
-    Johto: "https://cdn.bulbagarden.net/upload/6/64/JohtoMap.png",
-    Kanto: "https://cdn.bulbagarden.net/upload/thumb/4/43/HGSS_Kanto.png/787px-HGSS_Kanto.png",
-    Sinnoh: "https://cdn.bulbagarden.net/upload/thumb/7/7d/Sinnoh_Anime.png/800px-Sinnoh_Anime.png",
-    Unova: "https://cdn.bulbagarden.net/upload/thumb/4/42/Unova_alt.png/800px-Unova_alt.png",
-    'Kalos Central': "https://cdn.bulbagarden.net/upload/thumb/8/8a/Kalos_alt.png/800px-Kalos_alt.png",
-    'Kalos Coastal': "https://cdn.bulbagarden.net/upload/thumb/8/8a/Kalos_alt.png/800px-Kalos_alt.png",
-    'Kalos Mountain': "https://cdn.bulbagarden.net/upload/thumb/8/8a/Kalos_alt.png/800px-Kalos_alt.png",
+    Hoenn: "https://cdn2.bulbagarden.net/upload/thumb/3/3f/Hoenn_RS.png/442px-Hoenn_RS.png",
+    Johto: "https://cdn2.bulbagarden.net/upload/thumb/6/64/JohtoMap.png/600px-JohtoMap.png",
+    Kanto: "https://cdn2.bulbagarden.net/upload/thumb/2/25/LGPE_Kanto_Map.png/600px-LGPE_Kanto_Map.png",
+    Sinnoh: "https://cdn2.bulbagarden.net/upload/thumb/7/74/Pt_Sinnoh.png/600px-Pt_Sinnoh.png",
+    Unova: "https://cdn2.bulbagarden.net/upload/thumb/f/fc/Unova_B2W2_alt.png/600px-Unova_B2W2_alt.png",
+    Kalos: "https://cdn2.bulbagarden.net/upload/thumb/8/8a/Kalos_alt.png/600px-Kalos_alt.png",
+    'Kalos Central': "https://cdn2.bulbagarden.net/upload/thumb/8/8a/Kalos_alt.png/600px-Kalos_alt.png",
+    'Kalos Coastal': "https://cdn2.bulbagarden.net/upload/thumb/8/8a/Kalos_alt.png/600px-Kalos_alt.png",
+    'Kalos Mountain': "https://cdn2.bulbagarden.net/upload/thumb/8/8a/Kalos_alt.png/600px-Kalos_alt.png",
   };
 
   var hoenn = ["treecko", "grovyle", "sceptile", "torchic", "combusken", "blaziken", "mudkip", "marshtomp", "swampert", "poochyena", "mightyena", "zigzagoon", "linoone", "wurmple", "silcoon", "beautifly", "cascoon", "dustox", "lotad", "lombre", "ludicolo", "seedot", "nuzleaf", "shiftry", "taillow", "swellow", "wingull", "pelipper", "ralts", "kirlia", "gardevoir", "gallade", "surskit", "masquerain", "shroomish", "breloom", "slakoth", "vigoroth", "slaking", "abra", "kadabra", "alakazam", "nincada", "ninjask", "shedinja", "whismur", "loudred", "exploud", "makuhita", "hariyama", "goldeen", "seaking", "magikarp", "gyarados", "azurill", "marill", "azumarill", "geodude", "graveler", "golem", "nosepass", "probopass", "skitty", "delcatty", "zubat", "golbat", "crobat", "tentacool", "tentacruel", "sableye", "mawile", "aron", "lairon", "aggron", "machop", "machoke", "machamp", "meditite", "medicham", "electrike", "manectric", "plusle", "minun", "magnemite", "magneton", "magnezone", "voltorb", "electrode", "volbeat", "illumise", "oddish", "gloom", "vileplume", "bellossom", "doduo", "dodrio", "budew", "roselia", "roserade", "gulpin", "swalot", "carvanha", "sharpedo", "wailmer", "wailord", "numel", "camerupt", "slugma", "magcargo", "torkoal", "grimer", "muk", "koffing", "weezing", "spoink", "grumpig", "sandshrew", "sandslash", "spinda", "skarmory", "trapinch", "vibrava", "flygon", "cacnea", "cacturne", "swablu", "altaria", "zangoose", "seviper", "lunatone", "solrock", "barboach", "whiscash", "corphish", "crawdaunt", "baltoy", "claydol", "lileep", "cradily", "anorith", "armaldo", "igglybuff", "jigglypuff", "wigglytuff", "feebas", "milotic", "castform", "staryu", "starmie", "kecleon", "shuppet", "banette", "duskull", "dusclops", "dusknoir", "tropius", "chingling", "chimecho", "absol", "vulpix", "ninetales", "pichu", "pikachu", "raichu", "psyduck", "golduck", "wynaut", "wobbuffet", "natu", "xatu", "girafarig", "phanpy", "donphan", "pinsir", "heracross", "rhyhorn", "rhydon", "rhyperior", "snorunt", "glalie", "froslass", "spheal", "sealeo", "walrein", "clamperl", "huntail", "gorebyss", "relicanth", "corsola", "chinchou", "lanturn", "luvdisc", "horsea", "seadra", "kingdra", "bagon", "shelgon", "salamence", "beldum", "metang", "metagross", "regirock", "regice", "registeel", "latias", "latios", "kyogre", "groudon", "rayquaza", "jirachi", "deoxys", {region: "Hoenn"}];
